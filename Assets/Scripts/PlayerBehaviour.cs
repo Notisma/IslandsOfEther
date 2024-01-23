@@ -19,7 +19,7 @@ public class PlayerBehaviour : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         data = new PlayerData("Pr. M.Padraig");
-        data.AddCard(CardsManager.cards["Ange"]);
+        data.AddCard(CardsManager.cards["ange"]);
     }
 
     private void Update()
