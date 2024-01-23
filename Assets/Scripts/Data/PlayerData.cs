@@ -7,12 +7,10 @@ namespace Data
     {
         public List<CardData> cards = new List<CardData>();
         public String name;
-        public int nbCrystals;
 
-        public PlayerData(String name, int nbCrystals)
+        public PlayerData(String name)
         {
             this.name = name;
-            this.nbCrystals = nbCrystals;
         }
 
         public void AddCard(CardData c)

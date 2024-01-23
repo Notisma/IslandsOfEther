@@ -39,7 +39,7 @@ public class CardClick : MonoBehaviour
     public void OnMouseUp()
     {
         print("Card dropped");
-        transform.localScale = new Vector3((float)2.5, (float)2.5, (float)2.5);
+        transform.localScale = new Vector3((float)0.45, (float)0.45, (float)0.45);
         if (transform.parent.GetComponent<CardContainer>().cardArena.GetComponent<BoxCollider2D>().bounds
             .Contains(transform.position))
         {
