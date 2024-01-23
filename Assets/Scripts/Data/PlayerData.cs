@@ -6,9 +6,9 @@ namespace Data
     public class PlayerData
     {
         public List<CardData> cards = new List<CardData>();
-        public String name;
+        public string name;
 
-        public PlayerData(String name)
+        public PlayerData(string name)
         {
             this.name = name;
         }
