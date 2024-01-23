@@ -11,8 +11,7 @@ public class CardClick : MonoBehaviour
     public Vector3 offset;
     public Camera myMainCamera;
     public Vector3 initialPos;
-    public Vector3[] placedPos;
-    public bool[] placed;
+    public bool placed;
 
 
     void Start()
@@ -20,11 +19,6 @@ public class CardClick : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         myMainCamera = Camera.main;
         initialPos = transform.position;
-        placed = new bool[3];   
-        placedPos = new Vector3[3];
-        placedPos[0] = new Vector3((float)-3.1, (float)-0.2, 0);
-        placedPos[1] = new Vector3((float)-2.95, (float)-0.2, 0);
-        placedPos[2] = new Vector3((float)-2.8, (float)-0.2, 0);
     }
 
     public void OnMouseDown()
@@ -56,7 +50,9 @@ public class CardClick : MonoBehaviour
 
     public void OnMouseDrag()
     {
-        if (placed[0] == false || placed[1] == false || placed[2] == false)
+        if (transform.parent.GetComponent<CardContainer>().placed[0] == false ||
+            transform.parent.GetComponent<CardContainer>().placed[1] == false ||
+            transform.parent.GetComponent<CardContainer>().placed[2] == false)
         {
             MoveCard();
         }
@@ -86,20 +82,23 @@ public class CardClick : MonoBehaviour
 
     void PlaceCard()
     {
-        if (placed[0] == false)
+        if (transform.parent.GetComponent<CardContainer>().placed[0] == false)
         {
-            transform.position = placedPos[0];
-            placed[0] = true;
+            transform.position = transform.parent.GetComponent<CardContainer>().placedPos[0];
+            transform.parent.GetComponent<CardContainer>().placed[0] = true;
+            placed = true;
         }
-        else if (placed[1] == false)
+        else if (transform.parent.GetComponent<CardContainer>().placed[1] == false)
         {
-            transform.position = placedPos[1];
-            placed[1] = true;
+            transform.position = transform.parent.GetComponent<CardContainer>().placedPos[1];
+            transform.parent.GetComponent<CardContainer>().placed[1] = true;
+            placed = true;
         }
-        else if (placed[2] == false)
+        else if (transform.parent.GetComponent<CardContainer>().placed[2] == false)
         {
-            transform.position = placedPos[2];
-            placed[2] = true;
+            transform.position = transform.parent.GetComponent<CardContainer>().placedPos[2];
+            transform.parent.GetComponent<CardContainer>().placed[2] = true;
+            placed = true;
         }
     }
 }

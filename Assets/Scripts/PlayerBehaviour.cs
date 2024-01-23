@@ -1,9 +1,10 @@
 using System.Collections;
+using Data;
 using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-//    public TrainerPlayer data;
+    public PlayerData data;
 //    public bool isEnabled;
 
     public bool canWalk = true;
