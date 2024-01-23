@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    public static PlayerBehaviour P;
+
     public PlayerData data;
-//    public bool isEnabled;
+    public bool isEnabled = true;
 
     public bool canWalk = true;
     public float walkSpeed = 7;
 
     private void Start()
     {
-        //DontDestroyOnLoad(gameObject);
+        if (P == null) P = this;
+
+        DontDestroyOnLoad(gameObject);
 
         //data = new TrainerPlayer("Georges", 'M');
         /*data.ObtainPkmn(new PkInst(Pokemon.pokes["houndoom"], 1, "1 Animal Crossing"));
@@ -24,8 +28,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void Update()
     {
         //handles normal walking
-//        if (!this.isEnabled) return;
-        if (!canWalk) return;
+        if (!isEnabled || !canWalk) return;
 
         Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
 
@@ -70,7 +73,7 @@ public class PlayerBehaviour : MonoBehaviour
     public IEnumerator Walk(Vector3 direction)
     {
         canWalk = false;
-        
+
         //normal + cutscene walking
         float distWalked = 0f;
         Vector3 ogPos = transform.position;
