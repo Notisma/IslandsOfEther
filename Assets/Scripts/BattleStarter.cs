@@ -11,6 +11,7 @@ public class BattleStarter : MonoBehaviour
         {
             PlayerBehaviour.P.isEnabled = false;
             print("COMBAT MODE !!!");
+            SceneLoader.Load(SceneLoader.Scene.CardScene);
         }
     }
 }

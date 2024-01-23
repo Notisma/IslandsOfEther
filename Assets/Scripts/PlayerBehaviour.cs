@@ -18,11 +18,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        //data = new TrainerPlayer("Georges", 'M');
-        /*data.ObtainPkmn(new PkInst(Pokemon.pokes["houndoom"], 1, "1 Animal Crossing"));
-        data.ObtainPkmn(new PkInst(Pokemon.pokes["piplup"], 42, "2 Spinplup"));
-        data.ObtainPkmn(new PkInst(Pokemon.pokes["piplup"], 42, "3 Spinplup"));
-        data.ObtainPkmn(new PkInst(Pokemon.pokes["meloetta"], 69, "4 Meloetta"));*/
+        data = new PlayerData("Pr. M.Padraig", 10);
+        data.AddCard(new CardData("Ange", 6, 45));
     }
 
     private void Update()
