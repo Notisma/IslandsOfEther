@@ -2,32 +2,28 @@
 using UnityEngine;
 using System.Linq;
 using Data;
-using Unity.VisualScripting.FullSerializer;
+using Manager;
 using Random = System.Random;
 
 namespace Combat
 {
-    public static class EnemyTurn
+    public static class PlayerTurn
     {
         public static void PlaceCard()
         {
-            Random rand = new Random();
-            List<CardClick> unplacedCards = EnemyBehaviour.GetI().data.GetUnplacedCards();
-            int index = rand.Next(0, unplacedCards.Count);
-            CardClick carte = unplacedCards[index];
-            PlateauBH.Instance.PlaceCardOnPlate(carte);
+            BigManager.canDragAndDrop = true;
         }
 
-        public static void AttackPlayer(CardClick atking, CardClick playerDef)
+        public static void AttackEnemy(CardClick atking, CardClick enemyDef)
         {
             int attack = atking.data.attack;
-            playerDef.data.hp -= attack;
+            enemyDef.data.hp -= attack;
         }
 
         public static CardClick ChooseAtkCard()
         {
             Random rand = new Random();
-            List<CardClick> placedCards = EnemyBehaviour.GetI().data.GetPlacedCards();
+            List<CardClick> placedCards = PlayerBehaviour.P.data.GetPlacedCards();
             int index = rand.Next(0, placedCards.Count);
             CardClick carte = placedCards[index];
             return carte;
@@ -36,7 +32,7 @@ namespace Combat
         public static CardClick ChooseOppoCard()
         {
             Random rand = new Random();
-            List<CardClick> placedCards = PlayerBehaviour.P.data.GetPlacedCards();
+            List<CardClick> placedCards = EnemyBehaviour.GetI().data.GetPlacedCards();
             int index = rand.Next(0, placedCards.Count);
             CardClick carte = placedCards[index];
             return carte;

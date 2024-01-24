@@ -17,10 +17,12 @@ namespace Combat
             if (GetComponent<CircleCollider2D>().bounds.Contains(PlayerBehaviour.P.transform.position) &&
                 Input.GetButtonDown("Confirm"))
             {
-                PlayerBehaviour.P.isEnabled = false;
                 print("COMBAT MODE !!!");
                 SceneLoader.Load(SceneLoader.Scene.CardScene);
+
+                PlayerBehaviour.P.CesseTotalementDExister();
                 EnemyData en = CreateEnemyFromCardsList();
+                
                 Tour.StartBattle(en);
             }
         }

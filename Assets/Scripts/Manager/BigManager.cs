@@ -13,6 +13,7 @@ namespace Manager
         
         
         public static bool combatMode = false;
+        public static bool canDragAndDrop;
         
         private void Awake()
         {
@@ -24,9 +25,9 @@ namespace Manager
         private void Update()
         {
             if (!combatMode) return;
-            
-            if (Tour.Battle(i)) i++;
-            else Tour.EndBattle();
+            if (Tour.inATurn) return;
+
+            Tour.Battle(i);
         }
 
         public static BigManager GetI()

@@ -6,15 +6,43 @@ namespace Data
     {
         public List<CardClick> cards = new List<CardClick>();
         public string name;
-        public bool canPlay;
 
         public AbstractData(string name)
         {
             this.name = name;
         }
+
         public void AddCard(CardClick c)
         {
             cards.Add(c);
+        }
+
+        public List<CardClick> GetUnplacedCards()
+        {
+            List<CardClick> l = new List<CardClick>();
+            foreach (CardClick c in cards)
+            {
+                if (!c.placed)
+                {
+                    l.Add(c);
+                }
+            }
+
+            return l;
+        }
+        
+        public List<CardClick> GetPlacedCards()
+        {
+            List<CardClick> l = new List<CardClick>();
+            foreach (CardClick c in cards)
+            {
+                if (c.placed)
+                {
+                    l.Add(c);
+                }
+            }
+
+            return l;
         }
 
         public int getNbPlacedCards()

@@ -10,6 +10,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public PlayerData data;
     public bool isEnabled = true;
+    public CardContainer playerCards;
 
     public bool canWalk = true;
     public float walkSpeed = 7;
@@ -25,12 +26,22 @@ public class PlayerBehaviour : MonoBehaviour
         data = new PlayerData("Pr. M.Padraig");
         
         GetNewCard("ange");
+        GetNewCard("kitsune");
+    }
+
+    public void CesseTotalementDExister()
+    {
+        isEnabled = false;
+        transform.GetChild(0).gameObject.transform.localPosition = new Vector3(-1.3f, 2.5f, -10);
+        transform.GetChild(1).gameObject.SetActive(false);
+        playerCards.gameObject.SetActive(true);
+        playerCards.transform.position = new Vector3(-3, -3.5f, 0);
     }
 
     public void GetNewCard(string codename)
     {
         print(BigManager.GetI());
-        Object newCard = Object.Instantiate(BigManager.GetI().prefabCardExample);
+        Object newCard = Instantiate(BigManager.GetI().prefabCardExample, playerCards.transform);
         CardClick clik = newCard.GetComponent<CardClick>();
         clik.data = CardsManager.cards[codename];
         data.AddCard(clik);

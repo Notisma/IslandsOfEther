@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Data;
+using Manager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -14,8 +15,9 @@ public class CardClick : MonoBehaviour
     public Vector3 offset;
     public Camera myMainCamera;
     public Vector3 initialPos;
-    
+
     public bool placed;
+    
 
     public CardClick(CardData data)
     {
@@ -32,50 +34,51 @@ public class CardClick : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (PlayerBehaviour.P.data.canPlay)
+        if (!BigManager.canDragAndDrop)
         {
-            print("Card Clicked");
-            EnlargeCard();
-            dragPlane = new Plane(myMainCamera.transform.forward, transform.position);
-            Ray camRay = myMainCamera.ScreenPointToRay(Input.mousePosition);
-
-            float planeDist;
-            dragPlane.Raycast(camRay, out planeDist);
-            offset = transform.position - camRay.GetPoint(planeDist);
+            return;
         }
+        print("Card Clicked");
+        EnlargeCard();
+        dragPlane = new Plane(myMainCamera.transform.forward, transform.position);
+        Ray camRay = myMainCamera.ScreenPointToRay(Input.mousePosition);
+
+        float planeDist;
+        dragPlane.Raycast(camRay, out planeDist);
+        offset = transform.position - camRay.GetPoint(planeDist);
     }
 
     public void OnMouseUp()
     {
-        if (PlayerBehaviour.P.data.canPlay)
+        if (!BigManager.canDragAndDrop)
         {
-            print("Card dropped");
-            transform.localScale = new Vector3((float)0.45, (float)0.45, (float)0.45);
-            if (transform.parent.GetComponent<CardContainer>().cardArena.GetComponent<BoxCollider2D>().bounds
-                .Contains(transform.position))
-            {
-                PlaceCard();
-            }
-            else
-            {
-                ResetCard();
-            } 
+            return;
         }
-        
+        print("Card dropped");
+        transform.localScale = new Vector3((float)0.45, (float)0.45, (float)0.45);
+        GameObject cardArena = GameObject.FindGameObjectWithTag("Plateau");
+        if (cardArena.GetComponent<BoxCollider2D>().bounds
+            .Contains(transform.position))
+        {
+            PlaceCard();
+            BigManager.canDragAndDrop = false;
+        }
+        else
+        {
+            ResetCard();
+        }
     }
 
     public void OnMouseDrag()
     {
-        if (PlayerBehaviour.P.data.canPlay)
+        if (!BigManager.canDragAndDrop)
         {
-            if (transform.parent.GetComponent<CardContainer>().placed[0] == false ||
-                transform.parent.GetComponent<CardContainer>().placed[1] == false ||
-                transform.parent.GetComponent<CardContainer>().placed[2] == false)
-            {
-                MoveCard();
-            }
+            return;
         }
-        
+        if (PlayerBehaviour.P.data.getNbPlacedCards() < 3)
+        {
+            MoveCard();
+        }
     }
 
 
@@ -102,27 +105,25 @@ public class CardClick : MonoBehaviour
 
     void PlaceCard()
     {
-        if (transform.parent.GetComponent<CardContainer>().placed[0] == false)
+        if (PlayerBehaviour.P.data.getNbPlacedCards() == 0)
         {
-            transform.position = transform.parent.GetComponent<CardContainer>().placedPos[0];
-            transform.parent.GetComponent<CardContainer>().placed[0] = true;
+            transform.parent = GameObject.FindGameObjectWithTag("Plateau").GetComponent<SpriteRenderer>().transform;
             placed = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
-        else if (transform.parent.GetComponent<CardContainer>().placed[1] == false)
+        else if (PlayerBehaviour.P.data.getNbPlacedCards() == 1)
         {
-            transform.position = transform.parent.GetComponent<CardContainer>().placedPos[1];
-            transform.parent.GetComponent<CardContainer>().placed[1] = true;
+            transform.parent = GameObject.FindGameObjectWithTag("Plateau").GetComponent<SpriteRenderer>().transform;
             placed = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
-        else if (transform.parent.GetComponent<CardContainer>().placed[2] == false)
+        else if (PlayerBehaviour.P.data.getNbPlacedCards() == 2)
         {
-            transform.position = transform.parent.GetComponent<CardContainer>().placedPos[2];
-            transform.parent.GetComponent<CardContainer>().placed[2] = true;
+            transform.parent = GameObject.FindGameObjectWithTag("Plateau").GetComponent<SpriteRenderer>().transform;
             placed = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
+
+        PlayerBehaviour.P.playerCards.OrderDeck();
     }
-    
 }
