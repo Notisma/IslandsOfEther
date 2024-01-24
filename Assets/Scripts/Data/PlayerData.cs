@@ -3,19 +3,11 @@ using System.Collections.Generic;
 
 namespace Data
 {
-    public class PlayerData
+    public class PlayerData : AbstractData
     {
-        public List<CardData> cards = new List<CardData>();
-        public string name;
-
-        public PlayerData(string name)
+        
+        public PlayerData(string name) : base(name)
         {
-            this.name = name;
-        }
-
-        public void AddCard(CardData c)
-        {
-            cards.Add(c);
         }
     }
 }

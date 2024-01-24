@@ -2,18 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-public class EnemyData
+public class EnemyData : AbstractData
 {
-    public string name;
-    public List<CardData> cards = new List<CardData>();
-
-    public EnemyData(string name)
+    public EnemyData(string name) : base(name)
     {
-        this.name = name;
-    }
-    
-    public void AddCard(CardData c)
-    {
-        cards.Add(c);
     }
 }
