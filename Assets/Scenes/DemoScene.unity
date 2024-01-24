@@ -565,6 +565,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 239477817793710707, guid: 0abf59267d4ddf947bc7175fb432ae25, type: 3}
+      propertyPath: enemyCards.Array.data[0]
+      value: archange
+      objectReference: {fileID: 0}
+    - target: {fileID: 239477817793710707, guid: 0abf59267d4ddf947bc7175fb432ae25, type: 3}
+      propertyPath: enemyCards.Array.data[1]
+      value: serpent-univers
+      objectReference: {fileID: 0}
+    - target: {fileID: 239477817793710707, guid: 0abf59267d4ddf947bc7175fb432ae25, type: 3}
       propertyPath: enemyCards.Array.data[0].hp
       value: 9
       objectReference: {fileID: 0}
@@ -1770,8 +1778,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1383119825}
     m_Modifications:
     - target: {fileID: 239477817793710707, guid: 0abf59267d4ddf947bc7175fb432ae25, type: 3}
+      propertyPath: enemyName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 239477817793710707, guid: 0abf59267d4ddf947bc7175fb432ae25, type: 3}
       propertyPath: enemyCards.Array.size
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 239477817793710707, guid: 0abf59267d4ddf947bc7175fb432ae25, type: 3}
+      propertyPath: enemyCards.Array.data[0]
+      value: centopus
       objectReference: {fileID: 0}
     - target: {fileID: 6608746985066740620, guid: 0abf59267d4ddf947bc7175fb432ae25, type: 3}
       propertyPath: m_Name

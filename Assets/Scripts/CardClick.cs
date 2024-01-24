@@ -13,7 +13,6 @@ public class CardClick : MonoBehaviour
     public Vector3 offset;
     public Camera myMainCamera;
     public Vector3 initialPos;
-    public bool placed;
 
 
     void Start()
@@ -26,39 +25,50 @@ public class CardClick : MonoBehaviour
 
     public void OnMouseDown()
     {
-        print("Card Clicked");
-        EnlargeCard();
-        dragPlane = new Plane(myMainCamera.transform.forward, transform.position);
-        Ray camRay = myMainCamera.ScreenPointToRay(Input.mousePosition);
+        if (PlayerBehaviour.P.data.canPlay)
+        {
+            print("Card Clicked");
+            EnlargeCard();
+            dragPlane = new Plane(myMainCamera.transform.forward, transform.position);
+            Ray camRay = myMainCamera.ScreenPointToRay(Input.mousePosition);
 
-        float planeDist;
-        dragPlane.Raycast(camRay, out planeDist);
-        offset = transform.position - camRay.GetPoint(planeDist);
+            float planeDist;
+            dragPlane.Raycast(camRay, out planeDist);
+            offset = transform.position - camRay.GetPoint(planeDist);
+        }
     }
 
     public void OnMouseUp()
     {
-        print("Card dropped");
-        transform.localScale = new Vector3((float)0.45, (float)0.45, (float)0.45);
-        if (transform.parent.GetComponent<CardContainer>().cardArena.GetComponent<BoxCollider2D>().bounds
-            .Contains(transform.position))
+        if (PlayerBehaviour.P.data.canPlay)
         {
-            PlaceCard();
+            print("Card dropped");
+            transform.localScale = new Vector3((float)0.45, (float)0.45, (float)0.45);
+            if (transform.parent.GetComponent<CardContainer>().cardArena.GetComponent<BoxCollider2D>().bounds
+                .Contains(transform.position))
+            {
+                PlaceCard();
+            }
+            else
+            {
+                ResetCard();
+            } 
         }
-        else
-        {
-            ResetCard();
-        }
+        
     }
 
     public void OnMouseDrag()
     {
-        if (transform.parent.GetComponent<CardContainer>().placed[0] == false ||
-            transform.parent.GetComponent<CardContainer>().placed[1] == false ||
-            transform.parent.GetComponent<CardContainer>().placed[2] == false)
+        if (PlayerBehaviour.P.data.canPlay)
         {
-            MoveCard();
+            if (transform.parent.GetComponent<CardContainer>().placed[0] == false ||
+                transform.parent.GetComponent<CardContainer>().placed[1] == false ||
+                transform.parent.GetComponent<CardContainer>().placed[2] == false)
+            {
+                MoveCard();
+            }
         }
+        
     }
 
 
@@ -89,22 +99,23 @@ public class CardClick : MonoBehaviour
         {
             transform.position = transform.parent.GetComponent<CardContainer>().placedPos[0];
             transform.parent.GetComponent<CardContainer>().placed[0] = true;
-            placed = true;
+            card.placed = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
         else if (transform.parent.GetComponent<CardContainer>().placed[1] == false)
         {
             transform.position = transform.parent.GetComponent<CardContainer>().placedPos[1];
             transform.parent.GetComponent<CardContainer>().placed[1] = true;
-            placed = true;
+            card.placed = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
         else if (transform.parent.GetComponent<CardContainer>().placed[2] == false)
         {
             transform.position = transform.parent.GetComponent<CardContainer>().placedPos[2];
             transform.parent.GetComponent<CardContainer>().placed[2] = true;
-            placed = true;
+            card.placed = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
     }
+    
 }
