@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CardScene.unity
     guid: 399cd442e6cf9a14cb0db2d713224f76
+  - enabled: 1
+    path: Assets/Scenes/TItlescreen.unity
+    guid: 9f2c9076b220bd745b20c7b488cfc193
   m_configObjects: {}

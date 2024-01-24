@@ -8,7 +8,7 @@ namespace Manager
 public static class SceneLoader
 {
     public enum Scene {
-        DemoScene, CardScene
+        DemoScene, CardScene, Titlescreen
     }
 
     public static PlayerBehaviour player;
