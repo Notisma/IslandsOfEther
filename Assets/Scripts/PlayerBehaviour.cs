@@ -1,5 +1,7 @@
 using System.Collections;
 using Data;
+using Manager;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -19,7 +21,17 @@ public class PlayerBehaviour : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         data = new PlayerData("Pr. M.Padraig");
-        data.AddCard(CardsManager.cards["ange"]);
+        
+        GetNewCard("ange");
+    }
+
+    public void GetNewCard(string codename)
+    {
+        print(BigManager.GetI());
+        Object newCard = Object.Instantiate(BigManager.GetI().prefabCardExample);
+        CardClick clik = newCard.GetComponent<CardClick>();
+        clik.data = CardsManager.cards[codename];
+        data.AddCard(clik);
     }
 
     private void Update()

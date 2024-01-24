@@ -4,7 +4,7 @@ namespace Data
 {
     public abstract class AbstractData
     {
-        public List<CardData> cards = new List<CardData>();
+        public List<CardClick> cards = new List<CardClick>();
         public string name;
         public bool canPlay;
 
@@ -12,7 +12,7 @@ namespace Data
         {
             this.name = name;
         }
-        public void AddCard(CardData c)
+        public void AddCard(CardClick c)
         {
             cards.Add(c);
         }
@@ -20,7 +20,7 @@ namespace Data
         public int getNbPlacedCards()
         {
             int nb = 0;
-            foreach (CardData c in cards)
+            foreach (CardClick c in cards)
             {
                 if (c.placed)
                 {

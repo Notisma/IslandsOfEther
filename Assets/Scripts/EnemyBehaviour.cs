@@ -1,15 +1,29 @@
-﻿
+﻿using Manager;
+using Unity;
+using Unity.VisualScripting;
+using UnityEngine;
+
     public class EnemyBehaviour
     {
-        public static EnemyBehaviour E;
+        private static EnemyBehaviour E;
+
+        private EnemyBehaviour()
+        {
+        }
 
         public EnemyData data;
-        
-        private void Start()
+
+        public static EnemyBehaviour GetI()
         {
-            if (E == null) E = this;
-            
-            data = new EnemyData("Thanos");
-            data.AddCard(CardsManager.cards["kitsune"]);
+            if (E == null) E = new EnemyBehaviour();
+            return E;
+        }
+        
+        public void GetNewCard(string codename)
+        {
+            Object newCard = Object.Instantiate(BigManager.GetI().prefabCardExample);
+            CardClick clik = newCard.GetComponent<CardClick>();
+            clik.data = CardsManager.cards[codename];
+            data.AddCard(clik);
         }
     }

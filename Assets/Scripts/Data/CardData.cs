@@ -13,8 +13,6 @@ namespace Data
         public int attack;
         public int hp;
         public string description;
-        public bool placed;
-        
 
         public CardData(string id,string name, int attack, int hp, string description = "")
         {

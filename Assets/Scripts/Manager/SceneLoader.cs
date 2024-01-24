@@ -1,7 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static SceneLoader.Scene;
+using static Manager.SceneLoader.Scene;
 
+namespace Manager
+{
+    
 public static class SceneLoader
 {
     public enum Scene {
@@ -19,4 +22,5 @@ public static class SceneLoader
 
         SceneManager.LoadScene(newScene.ToString());
     }
+}
 }

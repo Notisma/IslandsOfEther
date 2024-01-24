@@ -4,20 +4,27 @@ using System.Collections.Generic;
 using Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class CardClick : MonoBehaviour
 {
-    public CardData card;
+    [FormerlySerializedAs("card")] public CardData data;
     private SpriteRenderer _spriteRenderer;
     public Plane dragPlane;
     public Vector3 offset;
     public Camera myMainCamera;
     public Vector3 initialPos;
+    
+    public bool placed;
 
+    public CardClick(CardData data)
+    {
+        this.data = data;
+    }
 
     void Start()
     {
-        card = PlayerBehaviour.P.data.cards[0];
+        data = PlayerBehaviour.P.data.cards[0].data;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         myMainCamera = Camera.main;
         initialPos = transform.position;
@@ -99,21 +106,21 @@ public class CardClick : MonoBehaviour
         {
             transform.position = transform.parent.GetComponent<CardContainer>().placedPos[0];
             transform.parent.GetComponent<CardContainer>().placed[0] = true;
-            card.placed = true;
+            placed = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
         else if (transform.parent.GetComponent<CardContainer>().placed[1] == false)
         {
             transform.position = transform.parent.GetComponent<CardContainer>().placedPos[1];
             transform.parent.GetComponent<CardContainer>().placed[1] = true;
-            card.placed = true;
+            placed = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
         else if (transform.parent.GetComponent<CardContainer>().placed[2] == false)
         {
             transform.position = transform.parent.GetComponent<CardContainer>().placedPos[2];
             transform.parent.GetComponent<CardContainer>().placed[2] = true;
-            card.placed = true;
+            placed = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
     }
