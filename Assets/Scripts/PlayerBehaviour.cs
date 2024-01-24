@@ -13,9 +13,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool canWalk = true;
     public float walkSpeed = 7;
+    Animator animator;
 
     private void Start()
     {
+        animator = this.GetComponent<Animator>();
         if (P == null) P = this;
 
         DontDestroyOnLoad(gameObject);
@@ -46,9 +48,17 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (direction != Vector3.zero && Time.timeScale > 0)
         {
-            Rotate(direction);
+//            Rotate(direction);
             if (!ColliderAhead())
                 StartCoroutine(Walk(direction));
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            animator.SetInteger("Speed", 0);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            animator.SetInteger("Speed", 1);
         }
     }
 
