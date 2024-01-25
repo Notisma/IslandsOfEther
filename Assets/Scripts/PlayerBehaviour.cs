@@ -32,7 +32,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void CesseTotalementDExister()
     {
         isEnabled = false;
-        transform.GetChild(0).gameObject.transform.localPosition = new Vector3(-1.3f, 2.5f, -10);
+        transform.GetChild(0).gameObject.transform.position = new Vector3(-1.78f, -0.05f, -10);
         transform.GetChild(1).gameObject.SetActive(false);
         playerCards.gameObject.SetActive(true);
         playerCards.transform.position = new Vector3(-3, -3.5f, 0);

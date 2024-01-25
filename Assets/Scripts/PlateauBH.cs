@@ -14,27 +14,10 @@ public class PlateauBH : MonoBehaviour
         }
     }
 
-    public void PlaceCardOnPlate(CardClick card)
+    public void PlaceCardOnPlate(CardClick card, bool isAllied)
     {
-        print("blabla");
-        card.transform.position = transform.position;
-        if (EnemyBehaviour.GetI().data.getNbPlacedCards() == 0)
-        {
-            card.transform.parent = GameObject.FindGameObjectWithTag("Plateau").GetComponent<SpriteRenderer>().transform;
-            card.placed = true;
-            transform.GetChild(0).gameObject.SetActive(true);
-        }
-        else if (EnemyBehaviour.GetI().data.getNbPlacedCards() == 1)
-        {
-            card.transform.parent = GameObject.FindGameObjectWithTag("Plateau").GetComponent<SpriteRenderer>().transform;
-            card.placed = true;
-            transform.GetChild(0).gameObject.SetActive(true);
-        }
-        else if (EnemyBehaviour.GetI().data.getNbPlacedCards() == 2)
-        {
-            card.transform.parent = GameObject.FindGameObjectWithTag("Plateau").GetComponent<SpriteRenderer>().transform;
-            card.placed = true;
-            transform.GetChild(0).gameObject.SetActive(true);
-        }
+        int y = (isAllied ? -5 : 5);
+        int x = 0 - PlayerBehaviour.P.data.getNbPlacedCards() * 3;
+        card.transform.position = new Vector3(x, y, 0);
     }
 }

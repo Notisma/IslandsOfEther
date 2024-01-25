@@ -15,7 +15,7 @@ namespace Combat
             List<CardClick> unplacedCards = EnemyBehaviour.GetI().data.GetUnplacedCards();
             int index = rand.Next(0, unplacedCards.Count);
             CardClick carte = unplacedCards[index];
-            PlateauBH.Instance.PlaceCardOnPlate(carte);
+            PlateauBH.Instance.PlaceCardOnPlate(carte, false);
         }
 
         public static void AttackPlayer(CardClick atking, CardClick playerDef)

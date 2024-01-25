@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Combat;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -7,6 +8,7 @@ namespace Manager
 {
     public class BigManager : MonoBehaviour
     {
+        
         private static BigManager INST;
         
         public Object prefabCardExample;
@@ -21,13 +23,12 @@ namespace Manager
             DontDestroyOnLoad(this);
         }
 
-        public int i;
         private void Update()
         {
             if (!combatMode) return;
-            if (Tour.inATurn) return;
-
-            Tour.Battle(i);
+        
+            Tour.Battle();
+            combatMode = false;
         }
 
         public static BigManager GetI()
@@ -38,7 +39,6 @@ namespace Manager
         public void StartCombat()
         {
             combatMode = true;
-            i = 0;
         }
     }
 }

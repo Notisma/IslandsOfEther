@@ -11,7 +11,7 @@ namespace Combat
         public static PlayerData player;
         public static EnemyData enemy;
 
-        public static bool inATurn = false;
+        public static bool inPlayerTurn = false;
 
         public static void StartBattle(EnemyData enemyData)
         {
@@ -20,14 +20,14 @@ namespace Combat
             enemy = enemyData;
             EnemyBehaviour.GetI().data = enemy;
             BigManager.GetI().StartCombat();
+            Debug.Log("start battle");
         }
 
-        public static void Battle(int i)
+        public static void Battle()
         {
-            inATurn = true;
-            TourJoueur();
+            Debug.Log("battle");
+            TourJoueur(); 
             TourIA();
-            inATurn = false;
         }
 
         private static void TourJoueur()

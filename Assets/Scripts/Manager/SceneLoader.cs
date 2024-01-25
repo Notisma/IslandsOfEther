@@ -8,13 +8,13 @@ namespace Manager
 public static class SceneLoader
 {
     public enum Scene {
-        DemoScene, CardScene, Titlescreen
+        Overworld, CardScene, Titlescreen
     }
 
     public static PlayerBehaviour player;
 
     public static Scene previousScene;
-    public static Scene currentScene = DemoScene;
+    public static Scene currentScene = Titlescreen;
 
     public static void Load(Scene newScene) {
         previousScene = currentScene;

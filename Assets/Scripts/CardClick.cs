@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Combat;
 using Data;
 using Manager;
 using UnityEngine;
@@ -38,7 +39,6 @@ public class CardClick : MonoBehaviour
         {
             return;
         }
-        print("Card Clicked");
         EnlargeCard();
         dragPlane = new Plane(myMainCamera.transform.forward, transform.position);
         Ray camRay = myMainCamera.ScreenPointToRay(Input.mousePosition);
@@ -54,7 +54,6 @@ public class CardClick : MonoBehaviour
         {
             return;
         }
-        print("Card dropped");
         transform.localScale = new Vector3((float)0.45, (float)0.45, (float)0.45);
         GameObject cardArena = GameObject.FindGameObjectWithTag("Plateau");
         if (cardArena.GetComponent<BoxCollider2D>().bounds
@@ -105,25 +104,9 @@ public class CardClick : MonoBehaviour
 
     void PlaceCard()
     {
-        if (PlayerBehaviour.P.data.getNbPlacedCards() == 0)
-        {
-            transform.parent = GameObject.FindGameObjectWithTag("Plateau").GetComponent<SpriteRenderer>().transform;
-            placed = true;
-            transform.GetChild(0).gameObject.SetActive(true);
-        }
-        else if (PlayerBehaviour.P.data.getNbPlacedCards() == 1)
-        {
-            transform.parent = GameObject.FindGameObjectWithTag("Plateau").GetComponent<SpriteRenderer>().transform;
-            placed = true;
-            transform.GetChild(0).gameObject.SetActive(true);
-        }
-        else if (PlayerBehaviour.P.data.getNbPlacedCards() == 2)
-        {
-            transform.parent = GameObject.FindGameObjectWithTag("Plateau").GetComponent<SpriteRenderer>().transform;
-            placed = true;
-            transform.GetChild(0).gameObject.SetActive(true);
-        }
+        PlateauBH.Instance.PlaceCardOnPlate(this, true);
 
         PlayerBehaviour.P.playerCards.OrderDeck();
+        Tour.inPlayerTurn = false;
     }
 }

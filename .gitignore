@@ -2,3 +2,6 @@ Library/
 .idea/
 Logs/
 Temp/
+.git/
+.vs/
+Build/
