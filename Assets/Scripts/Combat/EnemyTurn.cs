@@ -12,33 +12,33 @@ namespace Combat
         public static void PlaceCard()
         {
             Random rand = new Random();
-            List<CardClick> unplacedCards = EnemyBehaviour.GetI().data.GetUnplacedCards();
+            List<Card> unplacedCards = EnemyBehaviour.GetI().data.GetUnplacedCards();
             int index = rand.Next(0, unplacedCards.Count);
-            CardClick carte = unplacedCards[index];
+            Card carte = unplacedCards[index];
             PlateauBH.Instance.PlaceCardOnPlate(carte, false);
         }
 
-        public static void AttackPlayer(CardClick atking, CardClick playerDef)
+        public static void AttackPlayer(Card atking, Card playerDef)
         {
             int attack = atking.data.attack;
             playerDef.data.hp -= attack;
         }
 
-        public static CardClick ChooseAtkCard()
+        public static Card ChooseAtkCard()
         {
             Random rand = new Random();
-            List<CardClick> placedCards = EnemyBehaviour.GetI().data.GetPlacedCards();
+            List<Card> placedCards = EnemyBehaviour.GetI().data.GetPlacedCards();
             int index = rand.Next(0, placedCards.Count);
-            CardClick carte = placedCards[index];
+            Card carte = placedCards[index];
             return carte;
         }
 
-        public static CardClick ChooseOppoCard()
+        public static Card ChooseOppoCard()
         {
             Random rand = new Random();
-            List<CardClick> placedCards = PlayerBehaviour.P.data.GetPlacedCards();
+            List<Card> placedCards = PlayerBehaviour.P.data.GetPlacedCards();
             int index = rand.Next(0, placedCards.Count);
-            CardClick carte = placedCards[index];
+            Card carte = placedCards[index];
             return carte;
         }
     }

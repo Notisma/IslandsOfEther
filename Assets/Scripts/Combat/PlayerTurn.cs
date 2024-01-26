@@ -14,27 +14,27 @@ namespace Combat
             BigManager.canDragAndDrop = true;
         }
 
-        public static void AttackEnemy(CardClick atking, CardClick enemyDef)
+        public static void AttackEnemy(Card atking, Card enemyDef)
         {
             int attack = atking.data.attack;
             enemyDef.data.hp -= attack;
         }
 
-        public static CardClick ChooseAtkCard()
+        public static Card ChooseAtkCard()
         {
             Random rand = new Random();
-            List<CardClick> placedCards = PlayerBehaviour.P.data.GetPlacedCards();
+            List<Card> placedCards = PlayerBehaviour.P.data.GetPlacedCards();
             int index = rand.Next(0, placedCards.Count);
-            CardClick carte = placedCards[index];
+            Card carte = placedCards[index];
             return carte;
         }
 
-        public static CardClick ChooseOppoCard()
+        public static Card ChooseOppoCard()
         {
             Random rand = new Random();
-            List<CardClick> placedCards = EnemyBehaviour.GetI().data.GetPlacedCards();
+            List<Card> placedCards = EnemyBehaviour.GetI().data.GetPlacedCards();
             int index = rand.Next(0, placedCards.Count);
-            CardClick carte = placedCards[index];
+            Card carte = placedCards[index];
             return carte;
         }
     }

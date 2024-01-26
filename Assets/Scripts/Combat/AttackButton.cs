@@ -14,7 +14,7 @@ namespace Combat
 
         private void OnMouseDown()
         {
-            attack = transform.parent.GetComponent<CardClick>().data.attack;
+            attack = transform.parent.GetComponent<Card>().data.attack;
             enemy.hp -= attack;
         }
     }

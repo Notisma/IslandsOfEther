@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
-public class CardClick : MonoBehaviour
+public class Card : MonoBehaviour
 {
     [FormerlySerializedAs("card")] public CardData data;
     private SpriteRenderer _spriteRenderer;
@@ -20,7 +20,7 @@ public class CardClick : MonoBehaviour
     public bool placed;
     
 
-    public CardClick(CardData data)
+    public Card(CardData data)
     {
         this.data = data;
     }

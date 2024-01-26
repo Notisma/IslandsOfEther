@@ -22,7 +22,7 @@ using UnityEngine;
         public void GetNewCard(string codename)
         {
             Object newCard = Object.Instantiate(BigManager.GetI().prefabCardExample);
-            CardClick clik = newCard.GetComponent<CardClick>();
+            Card clik = newCard.GetComponent<Card>();
             clik.data = CardsManager.cards[codename];
             data.AddCard(clik);
         }

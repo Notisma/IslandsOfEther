@@ -20,9 +20,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         animator = this.GetComponent<Animator>();
         if (P == null) P = this;
-
+        
         DontDestroyOnLoad(gameObject);
-
+        
         data = new PlayerData("Pr. M.Padraig");
         
         GetNewCard("ange");
@@ -42,7 +42,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         print(BigManager.GetI());
         Object newCard = Instantiate(BigManager.GetI().prefabCardExample, playerCards.transform);
-        CardClick clik = newCard.GetComponent<CardClick>();
+        Card clik = newCard.GetComponent<Card>();
         clik.data = CardsManager.cards[codename];
         data.AddCard(clik);
     }
@@ -59,7 +59,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (direction != Vector3.zero && Time.timeScale > 0)
         {
-//            Rotate(direction);
+            Rotate(direction);
             if (!ColliderAhead())
                 StartCoroutine(Walk(direction));
         }
@@ -84,7 +84,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Collider2D[] GetObjectsInFront()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.up, 1);
+		RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.up, 1);
         Collider2D[] colliders = new Collider2D[hits.Length];
         for (int i = 0; i < hits.Length; i++)
             colliders[i] = hits[i].collider;

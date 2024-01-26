@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 13cf6260350513b459e18d576251d777, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15f4389b922e3795d9a2a8fa192159ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 92bba1f3ef1f2174f853dde5cdd09d91, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5913fcf4fe0fb698d99ff477ffc6a033, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -241,7 +241,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b4d54396040e9324e835a8c79411f3ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86f067ae2eab7cdd69c79edbc0114d3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -325,12 +325,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 58e1d2a1412135540a275d0acf8addde, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6385ba57ce3cd64a9395ab307d86e5f, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -413,12 +413,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 919aed47e2d2cda45928a2ee858e6c19, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 290bf750a54d543deb85acbdc2ab7cbb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 5, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -461,7 +461,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 5, y: 5}
-    newSize: {x: 0.32, y: 0.32}
+    newSize: {x: 5, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -478,10 +478,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5032304121946738149}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d066e24dc18fc2d4fbbdff62fb3b845b, type: 3}
+  m_Script: {fileID: 11500000, guid: 039f00b15846bfc9ea25dba93c02ab7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card:
+  data:
     id: 
     name: 
     attack: 0

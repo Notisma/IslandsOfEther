@@ -14,7 +14,7 @@ public class PlateauBH : MonoBehaviour
         }
     }
 
-    public void PlaceCardOnPlate(CardClick card, bool isAllied)
+    public void PlaceCardOnPlate(Card card, bool isAllied)
     {
         int y = (isAllied ? -5 : 5);
         int x = 0 - PlayerBehaviour.P.data.getNbPlacedCards() * 3;

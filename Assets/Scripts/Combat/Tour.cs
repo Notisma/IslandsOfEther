@@ -46,8 +46,8 @@ namespace Combat
 
             if (PlayerBehaviour.P.data.getNbPlacedCards() > 0)
             {
-                CardClick cardPlayer = PlayerTurn.ChooseAtkCard();
-                CardClick cardEnemy = PlayerTurn.ChooseOppoCard();
+                Card cardPlayer = PlayerTurn.ChooseAtkCard();
+                Card cardEnemy = PlayerTurn.ChooseOppoCard();
                 PlayerTurn.AttackEnemy(cardPlayer, cardEnemy);
             }
         }
@@ -68,8 +68,8 @@ namespace Combat
 
             if (EnemyBehaviour.GetI().data.getNbPlacedCards() > 0)
             {
-                CardClick cardEnemy = EnemyTurn.ChooseAtkCard();
-                CardClick cardPlayer = EnemyTurn.ChooseOppoCard();
+                Card cardEnemy = EnemyTurn.ChooseAtkCard();
+                Card cardPlayer = EnemyTurn.ChooseOppoCard();
                 EnemyTurn.AttackPlayer(cardEnemy, cardPlayer);
             }
         }
