@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Combat;
+using Data;
 using Events;
 using UnityEngine;
+using static Manager.SceneLoader;
 using Object = UnityEngine.Object;
 
 namespace Manager
@@ -25,11 +28,28 @@ namespace Manager
 
         public void LoadAssets()
         {
-            GameObject eventBox = GameObject.Find("Events");
-            foreach (Transform ev in eventBox.transform)
+            if (SceneIs(Scene.Overworld))
             {
-                gameEvents.Add(ev.GetComponent<EventFlagBattle>());
+                GameObject eventBox = GameObject.Find("Events");
+                foreach (Transform ev in eventBox.transform)
+                {
+                    gameEvents.Add(ev.GetComponent<EventFlagBattle>());
+                }
             }
+        }
+
+        public void CallBattleScene(WielderData en)
+        {
+            StartCoroutine(CallBattleSceneAux(en));
+        }
+
+        private IEnumerator CallBattleSceneAux(WielderData en)
+        {
+            yield return Load(Scene.Battle);
+
+            PlayerBehaviour.I.CesseTotalementDExister();
+            
+            StartCoroutine(BattleManager.BattleLoop(en));
         }
     }
 }

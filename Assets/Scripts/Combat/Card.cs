@@ -27,9 +27,10 @@ public class Card : MonoBehaviour
 
     void Start()
     {
-        data = PlayerBehaviour.P.data.cards[0].data;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         myMainCamera = Camera.main;
+
+        data = PlayerBehaviour.I.data.TEMP_GetFirstCard().data;
         initialPos = transform.position;
     }
 
@@ -74,7 +75,7 @@ public class Card : MonoBehaviour
         {
             return;
         }
-        if (PlayerBehaviour.P.data.getNbPlacedCards() < 3)
+        if (PlayerBehaviour.I.data.GetNbPlacedCards() < 3)
         {
             MoveCard();
         }
@@ -106,7 +107,7 @@ public class Card : MonoBehaviour
     {
         PlateauBH.Instance.PlaceCardOnPlate(this, true);
 
-        PlayerBehaviour.P.childCards.OrderDeck();
-        BattleManager.inPlayerTurn = false;
+        PlayerBehaviour.I.childCards.OrderDeck();
+        //BattleManager.inPlayerTurn = false;
     }
 }

@@ -7,9 +7,9 @@ using UnityEngine.Serialization;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    public static PlayerBehaviour P;
+    public static PlayerBehaviour I;
     
-    public PlayerData data;
+    public WielderData data;
     
     [Header("Children")]
     public CardContainer childCards;
@@ -24,12 +24,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Start()
     {
-        animator = this.GetComponent<Animator>();
-        if (P == null) P = this;
+        animator = GetComponent<Animator>();
+        if (I == null) I = this;
         
         DontDestroyOnLoad(gameObject);
         
-        data = new PlayerData("Pr. M.Padraig");
+        data = new WielderData("Pr. M.Padraig");
         
         GetNewCard("ange");
         GetNewCard("kitsune");

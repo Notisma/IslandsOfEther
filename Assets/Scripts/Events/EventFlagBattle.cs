@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using Combat;
+using Data;
 using Manager;
 using UnityEngine;
 
@@ -15,28 +17,23 @@ namespace Events
         {
             return Input.GetButtonDown("Confirm")
                    &&
-                   GetComponent<CircleCollider2D>().bounds.Contains(PlayerBehaviour.P.transform.position);
+                   GetComponent<CircleCollider2D>().bounds.Contains(PlayerBehaviour.I.transform.position);
         }
 
         /** Starts the battle */
         public void Activate()
         {
-            StartCoroutine(SceneLoader.Load(SceneLoader.Scene.Battle));
-
-            PlayerBehaviour.P.CesseTotalementDExister();
-
-            EnemyData en = CreateEnemyFromCardsList();
-
-            BattleManager.StartBattle(en);
+            WielderData en = CreateEnemyFromCardsList();
+            BigManager.I.CallBattleScene(en);
         }
 
-        private EnemyData CreateEnemyFromCardsList()
+        private WielderData CreateEnemyFromCardsList()
         {
-            EnemyData enemy = new EnemyData(enemyName);
-            EnemyBehaviour.GetI().data = enemy;
+            WielderData enemy = new WielderData(enemyName);
+            EnemyBehaviour.I().data = enemy;
             foreach (string s in enemyCards)
             {
-                EnemyBehaviour.GetI().GetNewCard(s);
+                EnemyBehaviour.I().GetNewCard(s);
             }
 
             return enemy;

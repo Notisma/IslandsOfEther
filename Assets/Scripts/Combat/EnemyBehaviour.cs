@@ -1,4 +1,5 @@
-﻿using Manager;
+﻿using Data;
+using Manager;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -6,17 +7,17 @@ namespace Combat
 {
     public class EnemyBehaviour
     {
-        private static EnemyBehaviour I;
+        private static EnemyBehaviour INST;
 
         private EnemyBehaviour()
         {
         }
 
-        public EnemyData data;
+        public WielderData data;
 
-        public static EnemyBehaviour GetI()
+        public static EnemyBehaviour I()
         {
-            return I ??= new EnemyBehaviour();
+            return INST ??= new EnemyBehaviour();
         }
         
         public void GetNewCard(string codename)

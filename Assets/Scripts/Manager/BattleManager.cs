@@ -1,83 +1,77 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using Combat;
+using Combat.Turns;
 using Data;
-using Manager;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
-namespace Combat
+namespace Manager
 {
     public static class BattleManager
     {
-        public static PlayerData player;
-        public static EnemyData enemy;
+        private static Turn currentTurn;
 
-        public static bool inPlayerTurn = false;
+        private static bool battleOver;
 
-        public static void StartBattle(EnemyData enemyData)
+        private static void InitializeBattle(WielderData enemyData)
         {
-            player = PlayerBehaviour.P.data;
-            PlayerBehaviour.P.childCards.OrderDeck();
-            enemy = enemyData;
-            EnemyBehaviour.GetI().data = enemy;
-            Debug.Log("start battle");
+            EnemyBehaviour.I().data = enemyData;
+
+            PlayerBehaviour.I.childCards.OrderDeck();
+
+            currentTurn = new PlayerTurn(); // le joueur commence toujours
+
+            battleOver = false;
+
+            Debug.Log("battle start !");
         }
 
-        public static void Battle()
+        public static IEnumerator BattleLoop(WielderData enemyData)
         {
-            Debug.Log("battle");
-            TourJoueur();
-            TourIA();
+            InitializeBattle(enemyData);
+            
+            while (!battleOver)
+            {
+                yield return JouerTour();
+
+                currentTurn = currentTurn.GetNextTurn();
+            }
+
+            yield return null;
         }
 
-        private static void TourJoueur()
+        private static IEnumerator JouerTour()
         {
-            MonoBehaviour.print("Tour du joueur");
-            if (PlayerBehaviour.P.data.cards.Count < 1 && PlayerBehaviour.P.data.getNbPlacedCards() < 1)
+            MonoBehaviour.print(currentTurn.TurnText());
+
+            yield return new WaitForSeconds(2);
+
+/*            if (currentTurn.GetWielderData().GetNbUnplacedCards() <= 0 &&
+                currentTurn.GetWielderData().GetNbPlacedCards() <= 0)
             {
                 EndBattle();
                 return;
             }
 
-            if (PlayerBehaviour.P.data.cards.Count > 0 && PlayerBehaviour.P.data.getNbPlacedCards() < 3)
+            if (currentTurn.GetWielderData().GetNbUnplacedCards() > 0 &&
+                currentTurn.GetWielderData().GetNbPlacedCards() < 3)
             {
-                PlayerTurn.PlaceCard();
+                currentTurn.PlaceCard();
             }
 
-            if (PlayerBehaviour.P.data.getNbPlacedCards() > 0)
+            if (currentTurn.GetWielderData().GetNbPlacedCards() > 0)
             {
-                Card cardPlayer = PlayerTurn.ChooseAtkCard();
-                Card cardEnemy = PlayerTurn.ChooseOppoCard();
-                PlayerTurn.AttackEnemy(cardPlayer, cardEnemy);
+                Card cardAtk = currentTurn.ChooseAtkCard();
+                Card cardDef = currentTurn.ChooseOppoCard();
+                currentTurn.Attack(cardAtk, cardDef);
             }
+            */
         }
 
-        private static void TourIA()
-        {
-            MonoBehaviour.print("Tour de l'adversaire");
-            if (EnemyBehaviour.GetI().data.cards.Count < 1 && EnemyBehaviour.GetI().data.getNbPlacedCards() < 1)
-            {
-                EndBattle();
-                return;
-            }
-
-            if (EnemyBehaviour.GetI().data.cards.Count > 0 && EnemyBehaviour.GetI().data.getNbPlacedCards() < 3)
-            {
-                EnemyTurn.PlaceCard();
-            }
-
-            if (EnemyBehaviour.GetI().data.getNbPlacedCards() > 0)
-            {
-                Card cardEnemy = EnemyTurn.ChooseAtkCard();
-                Card cardPlayer = EnemyTurn.ChooseOppoCard();
-                EnemyTurn.AttackPlayer(cardEnemy, cardPlayer);
-            }
-        }
-
-        public static void EndBattle()
+        private static void EndBattle()
         {
             Debug.Log("fini combat");
             BigManager.I.StartCoroutine(SceneLoader.Load(SceneLoader.previousScene));
-            PlayerBehaviour.P.GetNewCard(CardsManager.GetRandomCard().id);
+            PlayerBehaviour.I.GetNewCard(CardsManager.GetRandomCard().id);
         }
     }
 }

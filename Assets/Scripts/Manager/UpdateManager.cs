@@ -29,22 +29,21 @@ namespace Manager
             else if (SceneIs(Scene.Overworld))
             {
                 // player
-                PlayerBehaviour.P.HandleWalking();
-                PlayerBehaviour.P.childSprite.HandleKeyInput();
+                PlayerBehaviour.I.HandleWalking();
+                PlayerBehaviour.I.childSprite.HandleKeyInput();
                 //
-                
+
                 // events
                 foreach (IEvent ev in BigManager.I.gameEvents)
                 {
                     if (ev.IsActivable()) ev.Activate();
                 }
                 //
-
             }
             else if (SceneIs(Scene.Battle))
             {
                 // big manager
-                BattleManager.Battle();
+                //StartCoroutine(BattleManager.BattleLoop());
                 //
             }
         }

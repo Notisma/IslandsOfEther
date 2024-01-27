@@ -33,10 +33,10 @@ namespace Manager
             {
                 yield return null;
             }
+            
+            BigManager.I.LoadAssets();
 
             isLoaded = true;
-
-            BigManager.I.LoadAssets();
         }
 
         public static bool SceneIs(Scene test)

@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Combat
 {
-
     public class AttackButton : MonoBehaviour
     {
         public int attack;
