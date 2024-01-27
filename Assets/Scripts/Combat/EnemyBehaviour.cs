@@ -1,5 +1,4 @@
-﻿using Combat.Layout;
-using Data;
+﻿using Data;
 using Manager;
 
 namespace Combat
@@ -8,11 +7,8 @@ namespace Combat
     {
         private static EnemyBehaviour INST;
 
-        public CardsContainer cardsContainer;
-    
         private EnemyBehaviour()
         {
-            cardsContainer = BigManager.I.opponentCardsContainer;
         }
 
         public WielderData data;
@@ -21,7 +17,7 @@ namespace Combat
         {
             return INST ??= new EnemyBehaviour();
         }
-        
+
         public void GetNewCard(string codename)
         {
             CardData c = CardsManager.cards[codename];

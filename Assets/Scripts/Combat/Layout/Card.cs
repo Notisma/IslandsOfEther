@@ -15,23 +15,21 @@ namespace Combat.Layout
     
         public Vector3 initialPos;
         public bool placed;
-
-        public Card(CardData data)
-        {
-            this.data = data;
-        }
+        public bool allied;
 
         void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             myMainCamera = Camera.main;
 
-            data = PlayerBehaviour.I.data.TEMP_GetFirstCard();
+            data = PlayerBehaviour.I.data.cards[0];
             initialPos = transform.position;
         }
 
         public void OnMouseDown()
         {
+            if (!allied) return;
+            
             if (!BigManager.I.canDragAndDrop)
             {
                 return;
@@ -47,6 +45,8 @@ namespace Combat.Layout
 
         public void OnMouseUp()
         {
+            if (!allied) return;
+            
             if (!BigManager.I.canDragAndDrop)
             {
                 return;
@@ -67,11 +67,13 @@ namespace Combat.Layout
 
         public void OnMouseDrag()
         {
+            if (!allied) return;
+            
             if (!BigManager.I.canDragAndDrop)
             {
                 return;
             }
-            if (PlayerBehaviour.I.cardsContainer.GetNbPlacedCards() < 3)
+            if (BigManager.I.alliedCardsContainer.GetNbPlacedCards() < 3)
             {
                 MoveCard();
             }
@@ -101,9 +103,9 @@ namespace Combat.Layout
 
         void PlaceCard()
         {
-            PlateauBH.Instance.PlaceCardOnPlate(this, true);
+            BigManager.I.alliedCardsContainer.PlaceCardOnPlate(this);
 
-            PlayerBehaviour.I.cardsContainer.OrderDeck();
+            BigManager.I.alliedCardsContainer.OrderDeck();
             //BattleManager.inPlayerTurn = false;
         }
 

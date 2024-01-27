@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using Data;
+using Manager;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Combat.Layout
@@ -6,29 +9,37 @@ namespace Combat.Layout
     public class CardsContainer : MonoBehaviour
     {
         public List<Card> cards;
-        
-        private void Start()
-        {
-            OrderDeck();
-        }
 
-        public void CreateVisuals()
+        public void CreateCardObjects(List<CardData> cardsData, bool allied)
         {
-            /*Object newCard = Instantiate(BigManager.I.prefabCardExample, opponentCardsContainer.transform);
-            Card clik = newCard.GetComponent<Card>();
-            clik.data = CardsManager.cards[codename];
-            data.AddCard(clik);*/
+            foreach (CardData cardData in cardsData)
+            {
+                Card newCard = Instantiate(BigManager.I.prefabCardExample, transform).GetComponent<Card>();
+                newCard.data = cardData;
+                newCard.allied = allied;
+                cards.Add(newCard);
+            }
         }
 
         public void OrderDeck()
         {
-            for (int i = 0; i < transform.childCount; i++)
+            for (int i = 0; i < cards.Count; i++)
             {
-                Transform child = transform.GetChild(i);
-                child.position = new Vector3(child.position.x + i * 3, child.position.y, child.position.z);
+                Transform child = cards[i].transform;
+                Vector3 childPos = child.position;
+                child.position = new Vector3(childPos.x + i * 3, childPos.y, childPos.z);
             }
         }
-        
+
+        public void PlaceCardOnPlate(Card card)
+        {
+            float y = transform.Find("ArenaContainer").position.y;
+
+            Transform cardTransf = card.transform;
+            cardTransf.position = new Vector3(cardTransf.position.x, y, 0);
+            card.placed = true;
+        }
+
         public List<Card> GetUnplacedCards()
         {
             List<Card> l = new List<Card>();

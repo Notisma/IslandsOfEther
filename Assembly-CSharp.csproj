@@ -79,7 +79,6 @@
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshSpawner.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexZoom.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark02.cs" />
-    <Compile Include="Assets/Scripts/Combat/Layout/PlateauBH.cs" />
     <Compile Include="Assets/Scripts/Manager/CardsManager.cs" />
     <Compile Include="Assets/Scripts/U.cs" />
     <Compile Include="Assets/Scripts/Manager/UpdateManager.cs" />

@@ -53,7 +53,7 @@ namespace Combat.Turns
 
         public override CardsContainer GetCardsContainer()
         {
-            return PlayerBehaviour.I.cardsContainer;
+            return BigManager.I.alliedCardsContainer;
         }
     }
 }

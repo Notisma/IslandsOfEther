@@ -17,7 +17,11 @@ namespace Manager
         {
             EnemyBehaviour.I().data = enemyData;
 
-            PlayerBehaviour.I.cardsContainer.OrderDeck();
+            BigManager.I.alliedCardsContainer.CreateCardObjects(PlayerBehaviour.I.data.cards, true);
+            BigManager.I.opponentCardsContainer.CreateCardObjects(EnemyBehaviour.I().data.cards, false);
+            
+            BigManager.I.alliedCardsContainer.OrderDeck();
+            BigManager.I.opponentCardsContainer.OrderDeck();
 
             currentTurn = new PlayerTurn(); // le joueur commence toujours
 
@@ -74,8 +78,11 @@ namespace Manager
                     card => { cardDef = card; }
                 );
 
-                Debug.Log("the current user is attacking !");
-                currentTurn.Attack(cardAtk, cardDef);
+                if (cardDef != null)
+                {
+                    Debug.Log("the current user is attacking !");
+                    currentTurn.Attack(cardAtk, cardDef);
+                }
             }
 
             yield return new WaitForSeconds(2);

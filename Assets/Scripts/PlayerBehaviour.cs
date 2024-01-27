@@ -1,6 +1,4 @@
 using System.Collections;
-using Combat;
-using Combat.Layout;
 using Data;
 using Manager;
 using UnityEngine;
@@ -13,7 +11,6 @@ public class PlayerBehaviour : MonoBehaviour
     
     [Header("Related Objects")]
     public PlayerSprite childSprite;
-    public CardsContainer cardsContainer;
     
     [Header("Fields")]
     public bool canWalk = true;
@@ -28,7 +25,6 @@ public class PlayerBehaviour : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         animator = GetComponent<Animator>();
-        cardsContainer = BigManager.I.alliedCardsContainer;
         
         data = new WielderData("Pr. M.Padraig");
         GetNewCard("ange");
