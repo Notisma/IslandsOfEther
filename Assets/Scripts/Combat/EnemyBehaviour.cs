@@ -1,11 +1,12 @@
 ﻿using Manager;
-using Unity;
 using Unity.VisualScripting;
 using UnityEngine;
 
+namespace Combat
+{
     public class EnemyBehaviour
     {
-        private static EnemyBehaviour E;
+        private static EnemyBehaviour I;
 
         private EnemyBehaviour()
         {
@@ -15,15 +16,15 @@ using UnityEngine;
 
         public static EnemyBehaviour GetI()
         {
-            if (E == null) E = new EnemyBehaviour();
-            return E;
+            return I ??= new EnemyBehaviour();
         }
         
         public void GetNewCard(string codename)
         {
-            Object newCard = Object.Instantiate(BigManager.GetI().prefabCardExample);
+            Object newCard = Object.Instantiate(BigManager.I.prefabCardExample);
             Card clik = newCard.GetComponent<Card>();
             clik.data = CardsManager.cards[codename];
             data.AddCard(clik);
         }
     }
+}

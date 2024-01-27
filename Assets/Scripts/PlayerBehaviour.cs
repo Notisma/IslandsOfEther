@@ -3,18 +3,23 @@ using Data;
 using Manager;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerBehaviour : MonoBehaviour
 {
     public static PlayerBehaviour P;
-
+    
     public PlayerData data;
-    public bool isEnabled = true;
-    public CardContainer playerCards;
-
+    
+    [Header("Children")]
+    public CardContainer childCards;
+    public PlayerSprite childSprite;
+    
+    [Header("Fields")]
     public bool canWalk = true;
     public float walkSpeed = 7;
-    Animator animator;
+    
+    private Animator animator;
 
     private void Start()
     {
@@ -31,26 +36,24 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void CesseTotalementDExister()
     {
-        isEnabled = false;
         transform.GetChild(0).gameObject.transform.position = new Vector3(-1.78f, -0.05f, -10);
         transform.GetChild(1).gameObject.SetActive(false);
-        playerCards.gameObject.SetActive(true);
-        playerCards.transform.position = new Vector3(-3, -3.5f, 0);
+        childCards.gameObject.SetActive(true);
+        childCards.transform.position = new Vector3(-3, -3.5f, 0);
     }
 
     public void GetNewCard(string codename)
     {
-        print(BigManager.GetI());
-        Object newCard = Instantiate(BigManager.GetI().prefabCardExample, playerCards.transform);
+        Object newCard = Instantiate(BigManager.I.prefabCardExample, childCards.transform);
         Card clik = newCard.GetComponent<Card>();
         clik.data = CardsManager.cards[codename];
         data.AddCard(clik);
     }
 
-    private void Update()
+    public void HandleWalking()
     {
         //handles normal walking
-        if (!isEnabled || !canWalk) return;
+        if (!canWalk) return;
 
         Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
 

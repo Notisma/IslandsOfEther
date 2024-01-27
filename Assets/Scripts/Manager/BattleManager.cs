@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Combat
 {
-    public static class Tour
+    public static class BattleManager
     {
         public static PlayerData player;
         public static EnemyData enemy;
@@ -16,17 +16,16 @@ namespace Combat
         public static void StartBattle(EnemyData enemyData)
         {
             player = PlayerBehaviour.P.data;
-            PlayerBehaviour.P.playerCards.OrderDeck();
+            PlayerBehaviour.P.childCards.OrderDeck();
             enemy = enemyData;
             EnemyBehaviour.GetI().data = enemy;
-            BigManager.GetI().StartCombat();
             Debug.Log("start battle");
         }
 
         public static void Battle()
         {
             Debug.Log("battle");
-            TourJoueur(); 
+            TourJoueur();
             TourIA();
         }
 
@@ -77,9 +76,7 @@ namespace Combat
         public static void EndBattle()
         {
             Debug.Log("fini combat");
-            BigManager.combatMode = false;
-            SceneLoader.Load(SceneLoader.previousScene);
-            PlayerBehaviour.P.isEnabled = true;
+            BigManager.I.StartCoroutine(SceneLoader.Load(SceneLoader.previousScene));
             PlayerBehaviour.P.GetNewCard(CardsManager.GetRandomCard().id);
         }
     }

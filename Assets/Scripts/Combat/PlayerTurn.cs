@@ -11,7 +11,7 @@ namespace Combat
     {
         public static void PlaceCard()
         {
-            BigManager.canDragAndDrop = true;
+            BigManager.I.canDragAndDrop = true;
         }
 
         public static void AttackEnemy(Card atking, Card enemyDef)

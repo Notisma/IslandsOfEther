@@ -8,37 +8,27 @@ namespace Manager
 {
     public class BigManager : MonoBehaviour
     {
+        public static BigManager I;
         
-        private static BigManager INST;
-        
+        public bool canDragAndDrop;
+ 
+        [Header("Loadable Assets")]
         public Object prefabCardExample;
-        
-        
-        public static bool combatMode = false;
-        public static bool canDragAndDrop;
+        public List<BattleStarter> gameEvents;
         
         private void Awake()
         {
-            if (INST == null) INST = this;
+            if (I == null) I = this;
             DontDestroyOnLoad(this);
         }
 
-        private void Update()
+        public void LoadAssets()
         {
-            if (!combatMode) return;
-        
-            Tour.Battle();
-            combatMode = false;
-        }
-
-        public static BigManager GetI()
-        {
-            return INST;
-        }
-
-        public void StartCombat()
-        {
-            combatMode = true;
+            GameObject eventBox = GameObject.Find("Events");
+            foreach (Transform ev in eventBox.transform)
+            {
+                gameEvents.Add(ev.GetComponent<BattleStarter>());
+            }
         }
     }
 }

@@ -12,18 +12,16 @@ namespace Combat
         public string enemyName;
         public List<string> enemyCards;
 
-        void Update()
+        public void TestActivate()
         {
-            if (GetComponent<CircleCollider2D>().bounds.Contains(PlayerBehaviour.P.transform.position) &&
-                Input.GetButtonDown("Confirm"))
+            if (GetComponent<CircleCollider2D>().bounds.Contains(PlayerBehaviour.P.transform.position))
             {
-                print("COMBAT MODE !!!");
-                SceneLoader.Load(SceneLoader.Scene.CardScene);
+                StartCoroutine(SceneLoader.Load(SceneLoader.Scene.Battle));
 
                 PlayerBehaviour.P.CesseTotalementDExister();
                 EnemyData en = CreateEnemyFromCardsList();
                 
-                Tour.StartBattle(en);
+                BattleManager.StartBattle(en);
             }
         }
 

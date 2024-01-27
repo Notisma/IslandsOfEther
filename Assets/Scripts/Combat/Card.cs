@@ -35,7 +35,7 @@ public class Card : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (!BigManager.canDragAndDrop)
+        if (!BigManager.I.canDragAndDrop)
         {
             return;
         }
@@ -50,7 +50,7 @@ public class Card : MonoBehaviour
 
     public void OnMouseUp()
     {
-        if (!BigManager.canDragAndDrop)
+        if (!BigManager.I.canDragAndDrop)
         {
             return;
         }
@@ -60,7 +60,7 @@ public class Card : MonoBehaviour
             .Contains(transform.position))
         {
             PlaceCard();
-            BigManager.canDragAndDrop = false;
+            BigManager.I.canDragAndDrop = false;
         }
         else
         {
@@ -70,7 +70,7 @@ public class Card : MonoBehaviour
 
     public void OnMouseDrag()
     {
-        if (!BigManager.canDragAndDrop)
+        if (!BigManager.I.canDragAndDrop)
         {
             return;
         }
@@ -106,7 +106,7 @@ public class Card : MonoBehaviour
     {
         PlateauBH.Instance.PlaceCardOnPlate(this, true);
 
-        PlayerBehaviour.P.playerCards.OrderDeck();
-        Tour.inPlayerTurn = false;
+        PlayerBehaviour.P.childCards.OrderDeck();
+        BattleManager.inPlayerTurn = false;
     }
 }
