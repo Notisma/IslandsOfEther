@@ -1,35 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using Combat.Layout;
 using Data;
 using Manager;
-using Random = System.Random;
+using UnityEngine;
 
 namespace Combat.Turns
 {
     public class PlayerTurn : Turn
     {
-        public override void PlaceCard()
+        public override IEnumerator PlaceCard()
         {
             BigManager.I.canDragAndDrop = true;
+            yield return new WaitForSeconds(2);
         }
         
-        public override Card ChooseAtkCard()
+        public override IEnumerator ChooseAtkCard(System.Action<Card> callback)
         {
             /*Random rand = new Random();
             List<Card> placedCards = PlayerBehaviour.I.data.GetPlacedCards();
             int index = rand.Next(0, placedCards.Count);
             Card carte = placedCards[index];
             return carte;*/
-            return null;
+            yield return new WaitForSeconds(2);
+            callback(null);
         }
 
-        public override Card ChooseOppoCard()
+        public override IEnumerator ChooseOppoCard(System.Action<Card> callback)
         {
             /*Random rand = new Random();
             List<Card> placedCards = EnemyBehaviour.I().data.GetPlacedCards();
             int index = rand.Next(0, placedCards.Count);
             Card carte = placedCards[index];
             return carte;*/
-            return null;
+            yield return new WaitForSeconds(2);
+            callback(null);
         }
 
         public override string TurnText()
@@ -45,6 +49,11 @@ namespace Combat.Turns
         public override Turn GetNextTurn()
         {
             return new EnemyTurn();
+        }
+
+        public override CardsContainer GetCardsContainer()
+        {
+            return PlayerBehaviour.I.cardsContainer;
         }
     }
 }

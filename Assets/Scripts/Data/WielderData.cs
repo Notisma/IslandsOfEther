@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 namespace Data
 {
     public class WielderData
     {
-        private List<Card> cards = new();
+        private List<CardData> cards = new();
         public string name;
 
         public WielderData(string name)
@@ -14,42 +12,14 @@ namespace Data
             this.name = name;
         }
 
-        public Card TEMP_GetFirstCard()
+        public CardData TEMP_GetFirstCard()
         {
             return cards[0];
         }
 
-        public void AddCard(Card c)
+        public void AddCard(CardData c)
         {
             cards.Add(c);
-        }
-
-        public List<Card> GetUnplacedCards()
-        {
-            List<Card> l = new List<Card>();
-            foreach (Card c in cards)
-                if (!c.placed)
-                    l.Add(c);
-            return l;
-        }
-
-        public int GetNbUnplacedCards()
-        {
-            return GetUnplacedCards().Count;
-        }
-
-        public List<Card> GetPlacedCards()
-        {
-            List<Card> l = new List<Card>();
-            foreach (Card c in cards)
-                if (c.placed)
-                    l.Add(c);
-            return l;
-        }
-
-        public int GetNbPlacedCards()
-        {
-            return GetPlacedCards().Count;
         }
     }
 }

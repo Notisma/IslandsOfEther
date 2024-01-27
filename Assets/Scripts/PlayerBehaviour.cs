@@ -1,9 +1,9 @@
 using System.Collections;
+using Combat;
+using Combat.Layout;
 using Data;
 using Manager;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -11,9 +11,9 @@ public class PlayerBehaviour : MonoBehaviour
     
     public WielderData data;
     
-    [Header("Children")]
-    public CardContainer childCards;
+    [Header("Related Objects")]
     public PlayerSprite childSprite;
+    public CardsContainer cardsContainer;
     
     [Header("Fields")]
     public bool canWalk = true;
@@ -24,31 +24,15 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
         if (I == null) I = this;
-        
         DontDestroyOnLoad(gameObject);
         
-        data = new WielderData("Pr. M.Padraig");
+        animator = GetComponent<Animator>();
+        cardsContainer = BigManager.I.alliedCardsContainer;
         
+        data = new WielderData("Pr. M.Padraig");
         GetNewCard("ange");
         GetNewCard("kitsune");
-    }
-
-    public void CesseTotalementDExister()
-    {
-        transform.GetChild(0).gameObject.transform.position = new Vector3(-1.78f, -0.05f, -10);
-        transform.GetChild(1).gameObject.SetActive(false);
-        childCards.gameObject.SetActive(true);
-        childCards.transform.position = new Vector3(-3, -3.5f, 0);
-    }
-
-    public void GetNewCard(string codename)
-    {
-        Object newCard = Instantiate(BigManager.I.prefabCardExample, childCards.transform);
-        Card clik = newCard.GetComponent<Card>();
-        clik.data = CardsManager.cards[codename];
-        data.AddCard(clik);
     }
 
     public void HandleWalking()
@@ -113,5 +97,17 @@ public class PlayerBehaviour : MonoBehaviour
         transform.position = ogPos + lookingTowards;
 
         canWalk = true;
+    }
+    
+    public void CesseTotalementDExister()
+    {
+        transform.GetChild(0).gameObject.transform.position = new Vector3(-1.78f, -0.05f, -10); // camera
+        childSprite.gameObject.SetActive(false);
+    }
+
+    public void GetNewCard(string codename)
+    {
+        CardData c = CardsManager.cards[codename];
+        data.AddCard(c);
     }
 }

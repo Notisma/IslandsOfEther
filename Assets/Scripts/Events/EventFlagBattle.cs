@@ -23,15 +23,14 @@ namespace Events
         /** Starts the battle */
         public void Activate()
         {
-            WielderData en = CreateEnemyFromCardsList();
-            BigManager.I.CallBattleScene(en);
+            BigManager.I.CallBattleScene(this);
         }
 
-        private WielderData CreateEnemyFromCardsList()
+        public static WielderData CreateEnemyData(string name, List<string> cardsNames)
         {
-            WielderData enemy = new WielderData(enemyName);
+            WielderData enemy = new WielderData(name);
             EnemyBehaviour.I().data = enemy;
-            foreach (string s in enemyCards)
+            foreach (string s in cardsNames)
             {
                 EnemyBehaviour.I().GetNewCard(s);
             }

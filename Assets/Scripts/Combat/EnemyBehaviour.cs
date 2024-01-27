@@ -1,7 +1,6 @@
-﻿using Data;
+﻿using Combat.Layout;
+using Data;
 using Manager;
-using Unity.VisualScripting;
-using UnityEngine;
 
 namespace Combat
 {
@@ -9,8 +8,11 @@ namespace Combat
     {
         private static EnemyBehaviour INST;
 
+        public CardsContainer cardsContainer;
+    
         private EnemyBehaviour()
         {
+            cardsContainer = BigManager.I.opponentCardsContainer;
         }
 
         public WielderData data;
@@ -22,10 +24,8 @@ namespace Combat
         
         public void GetNewCard(string codename)
         {
-            Object newCard = Object.Instantiate(BigManager.I.prefabCardExample);
-            Card clik = newCard.GetComponent<Card>();
-            clik.data = CardsManager.cards[codename];
-            data.AddCard(clik);
+            CardData c = CardsManager.cards[codename];
+            data.AddCard(c);
         }
     }
 }

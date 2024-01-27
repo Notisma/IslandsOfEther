@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Combat;
+using Combat.Layout;
 using Combat.Turns;
 using Data;
 using UnityEngine;
@@ -16,19 +17,19 @@ namespace Manager
         {
             EnemyBehaviour.I().data = enemyData;
 
-            PlayerBehaviour.I.childCards.OrderDeck();
+            PlayerBehaviour.I.cardsContainer.OrderDeck();
 
             currentTurn = new PlayerTurn(); // le joueur commence toujours
 
             battleOver = false;
 
-            Debug.Log("battle start !");
+            Debug.Log("Battle engaged against " + enemyData.name + " !");
         }
 
         public static IEnumerator BattleLoop(WielderData enemyData)
         {
             InitializeBattle(enemyData);
-            
+
             while (!battleOver)
             {
                 yield return JouerTour();
@@ -36,40 +37,53 @@ namespace Manager
                 currentTurn = currentTurn.GetNextTurn();
             }
 
-            yield return null;
+            EndBattle();
         }
 
         private static IEnumerator JouerTour()
         {
             MonoBehaviour.print(currentTurn.TurnText());
+            CardsContainer container = currentTurn.GetCardsContainer();
 
-            yield return new WaitForSeconds(2);
-
-/*            if (currentTurn.GetWielderData().GetNbUnplacedCards() <= 0 &&
-                currentTurn.GetWielderData().GetNbPlacedCards() <= 0)
+            if (container.GetNbUnplacedCards() <= 0 &&
+                container.GetNbPlacedCards() <= 0)
             {
-                EndBattle();
-                return;
+                battleOver = true;
+                yield break;
             }
 
-            if (currentTurn.GetWielderData().GetNbUnplacedCards() > 0 &&
-                currentTurn.GetWielderData().GetNbPlacedCards() < 3)
+            if (container.GetNbUnplacedCards() > 0 &&
+                container.GetNbPlacedCards() < 3)
             {
-                currentTurn.PlaceCard();
+                Debug.Log("User needs to place a new card (unplaced = " + container.GetNbUnplacedCards() + " and placed = " +
+                          container.GetNbPlacedCards() + ")...");
+                yield return currentTurn.PlaceCard();
             }
 
-            if (currentTurn.GetWielderData().GetNbPlacedCards() > 0)
+            if (container.GetNbPlacedCards() > 0)
             {
-                Card cardAtk = currentTurn.ChooseAtkCard();
-                Card cardDef = currentTurn.ChooseOppoCard();
+                Debug.Log("the current user needs to choose an attacking card...");
+                Card cardAtk = null;
+                yield return currentTurn.ChooseAtkCard(
+                    card => { cardAtk = card; }
+                );
+
+                Debug.Log("the current user needs to choose an defending card...");
+                Card cardDef = null;
+                yield return currentTurn.ChooseOppoCard(
+                    card => { cardDef = card; }
+                );
+
+                Debug.Log("the current user is attacking !");
                 currentTurn.Attack(cardAtk, cardDef);
             }
-            */
+
+            yield return new WaitForSeconds(2);
         }
 
         private static void EndBattle()
         {
-            Debug.Log("fini combat");
+            Debug.Log("Combat terminé !");
             BigManager.I.StartCoroutine(SceneLoader.Load(SceneLoader.previousScene));
             PlayerBehaviour.I.GetNewCard(CardsManager.GetRandomCard().id);
         }

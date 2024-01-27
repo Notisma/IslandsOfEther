@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Runtime.CompilerServices;
-using UnityEngine;
 
 namespace Data
 {
@@ -21,11 +18,6 @@ namespace Data
             this.attack = attack;
             this.hp = hp;
             this.description = description;
-        }
-
-        void UpdateInfos()
-        {
-            
         }
     }
 }

@@ -45,10 +45,11 @@
     <Analyzer Include="/home/notisma/4Projects/GameDev/3UnityEditors/2022.3.17f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/Scripts/Combat/PlateauBH.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextEventHandler.cs" />
     <Compile Include="Assets/Scripts/Manager/BattleManager.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexShakeA.cs" />
+    <Compile Include="Assets/Scripts/Combat/Layout/Card.cs" />
+    <Compile Include="Assets/Scripts/Combat/Layout/AttackButton.cs" />
     <Compile Include="Assets/Scripts/Events/EventFlagBattle.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_ExampleScript_01.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMPro_InstructionOverlay.cs" />
@@ -78,7 +79,9 @@
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshSpawner.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexZoom.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark02.cs" />
+    <Compile Include="Assets/Scripts/Combat/Layout/PlateauBH.cs" />
     <Compile Include="Assets/Scripts/Manager/CardsManager.cs" />
+    <Compile Include="Assets/Scripts/U.cs" />
     <Compile Include="Assets/Scripts/Manager/UpdateManager.cs" />
     <Compile Include="Assets/Scripts/Data/WielderData.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextSelector_B.cs" />
@@ -88,14 +91,12 @@
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" />
     <Compile Include="Assets/Scripts/PlayerSprite.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ShaderPropAnimator.cs" />
-    <Compile Include="Assets/Scripts/Combat/Card.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" />
     <Compile Include="Assets/Scripts/Combat/Turns/PlayerTurn.cs" />
-    <Compile Include="Assets/Scripts/Combat/CardContainer.cs" />
     <Compile Include="Assets/Scripts/Combat/Turns/Turn.cs" />
-    <Compile Include="Assets/Scripts/Combat/AttackButton.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark03.cs" />
     <Compile Include="Assets/Scripts/Data/CardData.cs" />
+    <Compile Include="Assets/Scripts/Combat/Layout/CardsContainer.cs" />
     <Compile Include="Assets/Scripts/Manager/SceneLoader.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextInfoDebugTool.cs" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />

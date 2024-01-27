@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Combat;
+using Combat.Layout;
 using Data;
 using Events;
 using UnityEngine;
@@ -19,7 +20,9 @@ namespace Manager
         [Header("Loadable Assets")]
         public Object prefabCardExample;
         public List<EventFlagBattle> gameEvents;
-        
+        public CardsContainer alliedCardsContainer;
+        public CardsContainer opponentCardsContainer;
+
         private void Awake()
         {
             if (I == null) I = this;
@@ -36,20 +39,26 @@ namespace Manager
                     gameEvents.Add(ev.GetComponent<EventFlagBattle>());
                 }
             }
+            else if (SceneIs(Scene.Battle))
+            {
+                alliedCardsContainer = GameObject.Find("PlayerCards").GetComponent<CardsContainer>();
+                opponentCardsContainer = GameObject.Find("OpponentCards").GetComponent<CardsContainer>();
+            }
         }
 
-        public void CallBattleScene(WielderData en)
+        public void CallBattleScene(EventFlagBattle e)
         {
-            StartCoroutine(CallBattleSceneAux(en));
+            StartCoroutine(CallBattleSceneAux(e.enemyName, e.enemyCards));
         }
 
-        private IEnumerator CallBattleSceneAux(WielderData en)
+        private IEnumerator CallBattleSceneAux(string enemyName, List<string> enemyCards)
         {
             yield return Load(Scene.Battle);
 
             PlayerBehaviour.I.CesseTotalementDExister();
+            WielderData enemyData = EventFlagBattle.CreateEnemyData(enemyName, enemyCards);
             
-            StartCoroutine(BattleManager.BattleLoop(en));
+            StartCoroutine(BattleManager.BattleLoop(enemyData));
         }
     }
 }
