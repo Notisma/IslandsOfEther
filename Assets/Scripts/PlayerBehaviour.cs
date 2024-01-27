@@ -18,6 +18,7 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Fields")]
     public bool canWalk = true;
     public float walkSpeed = 7;
+    public Vector3 lookingTowards;
     
     private Animator animator;
 
@@ -55,16 +56,15 @@ public class PlayerBehaviour : MonoBehaviour
         //handles normal walking
         if (!canWalk) return;
 
-        Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
+        lookingTowards = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
 
-        if (direction.x == 0) //pour empêcher les diagonales
-            direction.y = Input.GetAxisRaw("Vertical");
+        if (lookingTowards.x == 0) //pour empêcher les diagonales
+            lookingTowards.y = Input.GetAxisRaw("Vertical");
 
-        if (direction != Vector3.zero && Time.timeScale > 0)
+        if (lookingTowards != Vector3.zero && Time.timeScale > 0)
         {
-            Rotate(direction);
             if (!ColliderAhead())
-                StartCoroutine(Walk(direction));
+                StartCoroutine(Walk());
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -87,23 +87,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Collider2D[] GetObjectsInFront()
     {
-		RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.up, 1);
+		RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, lookingTowards, 1);
         Collider2D[] colliders = new Collider2D[hits.Length];
         for (int i = 0; i < hits.Length; i++)
             colliders[i] = hits[i].collider;
         return colliders;
     }
 
-    public void Rotate(Vector3 direction)
-    {
-        int rotaZion = ((int)direction.y == -1) ? (180) : (270 * (int)direction.x); //formule pour calc la rotation en z
-
-        transform.rotation = Quaternion.Euler(0, 0, rotaZion);
-
-        transform.GetChild(0).rotation = Quaternion.identity; //reset la rotation de la cam
-    }
-
-    public IEnumerator Walk(Vector3 direction)
+    public IEnumerator Walk()
     {
         canWalk = false;
 
@@ -114,12 +105,12 @@ public class PlayerBehaviour : MonoBehaviour
         while (distWalked < 1)
         {
             distWalked += walkSpeed * Time.deltaTime;
-            transform.position += direction * (walkSpeed * Time.deltaTime);
+            transform.position += lookingTowards * (walkSpeed * Time.deltaTime);
 
             yield return new WaitForEndOfFrame();
         }
 
-        transform.position = ogPos + direction;
+        transform.position = ogPos + lookingTowards;
 
         canWalk = true;
     }

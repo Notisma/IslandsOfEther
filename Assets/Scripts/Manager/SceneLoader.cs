@@ -31,13 +31,11 @@ namespace Manager
             isLoaded = false;
             while (!asyncLoad.isDone)
             {
-                Debug.Log("loading.......");
                 yield return null;
             }
 
             isLoaded = true;
 
-            Debug.Log("Loaded !!");
             BigManager.I.LoadAssets();
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Combat;
+using Events;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -14,7 +15,7 @@ namespace Manager
  
         [Header("Loadable Assets")]
         public Object prefabCardExample;
-        public List<BattleStarter> gameEvents;
+        public List<EventFlagBattle> gameEvents;
         
         private void Awake()
         {
@@ -27,7 +28,7 @@ namespace Manager
             GameObject eventBox = GameObject.Find("Events");
             foreach (Transform ev in eventBox.transform)
             {
-                gameEvents.Add(ev.GetComponent<BattleStarter>());
+                gameEvents.Add(ev.GetComponent<EventFlagBattle>());
             }
         }
     }

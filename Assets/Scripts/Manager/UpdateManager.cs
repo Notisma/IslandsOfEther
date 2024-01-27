@@ -1,5 +1,6 @@
 using System;
 using Combat;
+using Events;
 using UnityEngine;
 using static Manager.SceneLoader;
 
@@ -15,7 +16,7 @@ namespace Manager
         private void Update()
         {
             if (!isLoaded) return;
-            
+
             if (SceneIs(Scene.Titlescreen))
             {
                 // main menu
@@ -29,21 +30,16 @@ namespace Manager
             {
                 // player
                 PlayerBehaviour.P.HandleWalking();
+                PlayerBehaviour.P.childSprite.HandleKeyInput();
                 //
-
-                // battle starter
-                if (Input.GetButtonDown("Confirm"))
+                
+                // events
+                foreach (IEvent ev in BigManager.I.gameEvents)
                 {
-                    foreach (BattleStarter ev in BigManager.I.gameEvents)
-                    {
-                        ev.TestActivate();
-                    }
+                    if (ev.IsActivable()) ev.Activate();
                 }
                 //
 
-                // player sprite
-                PlayerBehaviour.P.childSprite.HandleKeyInput();
-                //
             }
             else if (SceneIs(Scene.Battle))
             {
