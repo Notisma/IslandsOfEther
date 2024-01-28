@@ -49,30 +49,30 @@ namespace Manager
             MonoBehaviour.print(currentTurn.TurnText());
             CardsContainer container = currentTurn.GetCardsContainer();
 
-            if (container.GetNbUnplacedCards() <= 0 &&
+            if (container.GetNbDeckedCards() <= 0 &&
                 container.GetNbPlacedCards() <= 0)
             {
                 battleOver = true;
                 yield break;
             }
 
-            if (container.GetNbUnplacedCards() > 0 &&
+            if (container.GetNbDeckedCards() > 0 &&
                 container.GetNbPlacedCards() < 3)
             {
-                Debug.Log("User needs to place a new card (unplaced = " + container.GetNbUnplacedCards() + " and placed = " +
+                Debug.Log(currentTurn + " needs to place a new card (unplaced = " + container.GetNbDeckedCards() + " and placed = " +
                           container.GetNbPlacedCards() + ")...");
                 yield return currentTurn.PlaceCard();
             }
 
             if (container.GetNbPlacedCards() > 0)
             {
-                Debug.Log("the current user needs to choose an attacking card...");
+                Debug.Log(currentTurn + " needs to choose an attacking card...");
                 Card cardAtk = null;
                 yield return currentTurn.ChooseAtkCard(
                     card => { cardAtk = card; }
                 );
 
-                Debug.Log("the current user needs to choose an defending card...");
+                Debug.Log(currentTurn + " needs to choose an defending card...");
                 Card cardDef = null;
                 yield return currentTurn.ChooseOppoCard(
                     card => { cardDef = card; }
@@ -80,7 +80,7 @@ namespace Manager
 
                 if (cardDef != null)
                 {
-                    Debug.Log("the current user is attacking !");
+                    Debug.Log(currentTurn + " is attacking !");
                     currentTurn.Attack(cardAtk, cardDef);
                 }
             }

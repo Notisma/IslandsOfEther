@@ -15,8 +15,6 @@ namespace Manager
     {
         public static BigManager I;
         
-        public bool canDragAndDrop;
- 
         [Header("Loadable Assets")]
         public Object prefabCardExample;
         public List<EventFlagBattle> gameEvents;

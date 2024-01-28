@@ -10,6 +10,7 @@ namespace Combat.Turns
         public abstract IEnumerator ChooseAtkCard(System.Action<Card> callback);
         public abstract IEnumerator ChooseOppoCard(System.Action<Card> callback);
 
+        public abstract override string ToString();
         public abstract string TurnText();
         public abstract WielderData GetWielderData();
         public abstract Turn GetNextTurn();

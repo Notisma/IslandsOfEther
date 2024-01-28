@@ -3,17 +3,34 @@ using Combat.Layout;
 using Data;
 using Manager;
 using UnityEngine;
+using static Combat.Layout.Card.CardState;
 
 namespace Combat.Turns
 {
     public class PlayerTurn : Turn
     {
+        public static bool userActionWasDone;
+
         public override IEnumerator PlaceCard()
         {
-            BigManager.I.canDragAndDrop = true;
-            yield return new WaitForSeconds(2);
+            yield return null;
+            foreach (Card card in GetCardsContainer().GetDeckedCards())
+            {
+                card.state = InDeckSelectable;
+            }
+
+            userActionWasDone = false;
+            do
+            {
+                yield return null;
+            } while (!userActionWasDone); // waits for Card script to change bool
+
+            foreach (Card card in GetCardsContainer().GetDeckedCards())
+            {
+                card.state = InDeckStatic;
+            }
         }
-        
+
         public override IEnumerator ChooseAtkCard(System.Action<Card> callback)
         {
             /*Random rand = new Random();
@@ -34,6 +51,11 @@ namespace Combat.Turns
             return carte;*/
             yield return new WaitForSeconds(2);
             callback(null);
+        }
+
+        public override string ToString()
+        {
+            return "joueur";
         }
 
         public override string TurnText()

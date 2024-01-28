@@ -13,7 +13,7 @@ namespace Combat.Turns
         public override IEnumerator PlaceCard()
         {
             Random rand = new Random();
-            List<Card> unplacedCards = BigManager.I.opponentCardsContainer.GetUnplacedCards();
+            List<Card> unplacedCards = BigManager.I.opponentCardsContainer.GetDeckedCards();
             int index = rand.Next(0, unplacedCards.Count);
             Card carte = unplacedCards[index];
             BigManager.I.opponentCardsContainer.PlaceCardOnPlate(carte);
@@ -50,6 +50,11 @@ namespace Combat.Turns
             Card carte = placedCards[index];
             yield return new WaitForSeconds(2);
             callback(carte);
+        }
+
+        public override string ToString()
+        {
+            return "ennemi";
         }
 
         public override string TurnText()
