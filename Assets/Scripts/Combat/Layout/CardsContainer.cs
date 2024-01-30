@@ -75,5 +75,20 @@ namespace Combat.Layout
         {
             return GetPlacedCards().Count;
         }
+
+        public List<Card> GetSelectableAttackCards()
+        {
+            List<Card> l = new List<Card>();
+            foreach (Transform ch in childCardGameObjects)
+            {
+                Card c = ch.GetComponent<Card>();
+                if (c.state is OnArenaStatic && c.allied)
+                {
+                    l.Add(c);
+                }
+            }
+
+            return l;
+        }
     }
 }

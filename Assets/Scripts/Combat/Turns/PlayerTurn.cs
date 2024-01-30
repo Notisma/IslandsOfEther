@@ -11,6 +11,8 @@ namespace Combat.Turns
     {
         public static bool userActionWasDone;
 
+        public static Card currentCard;
+
         public override IEnumerator PlaceCard()
         {
             yield return null;
@@ -33,13 +35,24 @@ namespace Combat.Turns
 
         public override IEnumerator ChooseAtkCard(System.Action<Card> callback)
         {
-            /*Random rand = new Random();
-            List<Card> placedCards = PlayerBehaviour.I.data.GetPlacedCards();
-            int index = rand.Next(0, placedCards.Count);
-            Card carte = placedCards[index];
-            return carte;*/
-            yield return new WaitForSeconds(2);
-            callback(null);
+            yield return null;
+            foreach (Card card in GetCardsContainer().GetSelectableAttackCards())
+            {
+                card.state = OnArenaSelectableAsAttacker;
+            }
+
+            userActionWasDone = false;
+            do
+            {
+                yield return null;
+            } while (!userActionWasDone);
+
+            foreach (Card card in GetCardsContainer().GetSelectableAttackCards())
+            {
+                card.state = OnArenaStatic;
+            }
+
+            callback(currentCard);
         }
 
         public override IEnumerator ChooseOppoCard(System.Action<Card> callback)

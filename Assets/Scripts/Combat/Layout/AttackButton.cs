@@ -1,5 +1,6 @@
 using Data;
 using UnityEngine;
+using static Combat.Layout.Card.CardState;
 
 namespace Combat.Layout
 {
@@ -10,8 +11,10 @@ namespace Combat.Layout
 
         private void OnMouseDown()
         {
-            attack = transform.parent.GetComponent<Card>().data.attack;
-            enemy.hp -= attack;
+            if (transform.parent.GetComponent<Card>().state is OnArenaSelectableAsAttacker)
+            {
+                Debug.Log("Attacking0");
+            }
         }
     }
 }

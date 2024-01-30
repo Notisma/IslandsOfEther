@@ -35,7 +35,7 @@ namespace Combat.Layout
             _spriteRenderer = GetComponent<SpriteRenderer>();
             myMainCamera = Camera.main;
             initialPos = transform.position;
-            
+
             state = InDeckStatic;
         }
 
@@ -50,7 +50,6 @@ namespace Combat.Layout
 
             dragPlane.Raycast(camRay, out var planeDist);
             offset = transform.position - camRay.GetPoint(planeDist);
-
             state = Moving;
         }
 
@@ -62,6 +61,7 @@ namespace Combat.Layout
             transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
 
             GameObject cardArena = GameObject.FindGameObjectWithTag("Plateau");
+
 
             if (cardArena.GetComponent<BoxCollider2D>().bounds.Contains(transform.position))
             {
