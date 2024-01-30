@@ -27,7 +27,7 @@ namespace Manager
 
             battleOver = false;
 
-            Debug.Log("Battle engaged against " + enemyData.name + " !");
+            TextDisplayer.I.DisplayText("Battle engaged against " + enemyData.name + " !");
         }
 
         public static IEnumerator BattleLoop(WielderData enemyData)
@@ -46,7 +46,7 @@ namespace Manager
 
         private static IEnumerator JouerTour()
         {
-            MonoBehaviour.print(currentTurn.TurnText());
+            TextDisplayer.I.DisplayText(currentTurn.TurnText());
             CardsContainer container = currentTurn.GetCardsContainer();
 
             if (container.GetNbDeckedCards() <= 0 &&
@@ -59,20 +59,20 @@ namespace Manager
             if (container.GetNbDeckedCards() > 0 &&
                 container.GetNbPlacedCards() < 3)
             {
-                Debug.Log(currentTurn + " needs to place a new card (unplaced = " + container.GetNbDeckedCards() + " and placed = " +
+                TextDisplayer.I.DisplayText(currentTurn + " needs to place a new card (unplaced = " + container.GetNbDeckedCards() + " and placed = " +
                           container.GetNbPlacedCards() + ")...");
                 yield return currentTurn.PlaceCard();
             }
 
             if (container.GetNbPlacedCards() > 0)
             {
-                Debug.Log(currentTurn + " needs to choose an attacking card...");
+                TextDisplayer.I.DisplayText(currentTurn + " needs to choose an attacking card...");
                 Card cardAtk = null;
                 yield return currentTurn.ChooseAtkCard(
                     card => { cardAtk = card; }
                 );
 
-                Debug.Log(currentTurn + " needs to choose an defending card...");
+                TextDisplayer.I.DisplayText(currentTurn + " needs to choose an defending card...");
                 Card cardDef = null;
                 yield return currentTurn.ChooseOppoCard(
                     card => { cardDef = card; }
@@ -80,7 +80,7 @@ namespace Manager
 
                 if (cardDef != null)
                 {
-                    Debug.Log(currentTurn + " is attacking !");
+                    TextDisplayer.I.DisplayText(currentTurn + " is attacking !");
                     currentTurn.Attack(cardAtk, cardDef);
                 }
             }
@@ -90,7 +90,7 @@ namespace Manager
 
         private static void EndBattle()
         {
-            Debug.Log("Combat terminé !");
+            TextDisplayer.I.DisplayText("Combat terminé !");
             BigManager.I.StartCoroutine(SceneLoader.Load(SceneLoader.previousScene));
             PlayerBehaviour.I.GetNewCard(CardsManager.GetRandomCard().id);
         }

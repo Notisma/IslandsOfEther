@@ -14,9 +14,8 @@ namespace Manager
     public class BigManager : MonoBehaviour
     {
         public static BigManager I;
-        
-        [Header("Loadable Assets")]
-        public Object prefabCardExample;
+
+        [Header("Loadable Assets")] public Object prefabCardExample;
         public List<EventFlagBattle> gameEvents;
         public CardsContainer alliedCardsContainer;
         public CardsContainer opponentCardsContainer;
@@ -55,7 +54,7 @@ namespace Manager
 
             PlayerBehaviour.I.CesseTotalementDExister();
             WielderData enemyData = EventFlagBattle.CreateEnemyData(enemyName, enemyCards);
-            
+
             StartCoroutine(BattleManager.BattleLoop(enemyData));
         }
     }

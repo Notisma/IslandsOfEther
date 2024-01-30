@@ -97,7 +97,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void CesseTotalementDExister()
     {
-        transform.GetChild(0).gameObject.transform.position = new Vector3(-1.78f, -0.05f, -10); // camera
+        transform.GetChild(0).gameObject.SetActive(false);
         childSprite.gameObject.SetActive(false);
     }
 
