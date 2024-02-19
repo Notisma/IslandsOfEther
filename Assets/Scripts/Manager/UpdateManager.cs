@@ -42,9 +42,7 @@ namespace Manager
             }
             else if (SceneIs(Scene.Battle))
             {
-                // big manager
-                //StartCoroutine(BattleManager.BattleLoop());
-                //
+                
             }
         }
     }

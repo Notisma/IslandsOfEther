@@ -24,7 +24,6 @@ namespace Combat.Layout
         private SpriteRenderer _spriteRenderer;
         private Plane dragPlane;
         public Vector3 offset;
-        public Camera myMainCamera;
 
         public Vector3 initialPos;
         public CardState state;
@@ -33,7 +32,6 @@ namespace Combat.Layout
         void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            myMainCamera = Camera.main;
             initialPos = transform.position;
 
             state = InDeckStatic;
@@ -41,16 +39,25 @@ namespace Combat.Layout
 
         public void OnMouseDown()
         {
-            if (!allied) return;
-            if (state is not InDeckSelectable) return;
+            if (allied)
+            {
+                if (state is not InDeckSelectable) return;
 
-            EnlargeCard();
-            dragPlane = new Plane(myMainCamera.transform.forward, transform.position);
-            Ray camRay = myMainCamera.ScreenPointToRay(Input.mousePosition);
+                EnlargeCard();
+                dragPlane = new Plane(Camera.main.transform.forward, transform.position);
+                Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            dragPlane.Raycast(camRay, out var planeDist);
-            offset = transform.position - camRay.GetPoint(planeDist);
-            state = Moving;
+                dragPlane.Raycast(camRay, out var planeDist);
+                offset = transform.position - camRay.GetPoint(planeDist);
+                state = Moving;
+            }
+            else
+            {
+                if (state is not OnArenaSelectableAsPrey) return;
+
+                PlayerTurn.currentCard = this;
+                PlayerTurn.userActionWasDone = true;
+            }
         }
 
         public void OnMouseUp()
@@ -62,8 +69,7 @@ namespace Combat.Layout
 
             GameObject cardArena = GameObject.FindGameObjectWithTag("Plateau");
 
-
-            if (cardArena.GetComponent<BoxCollider2D>().bounds.Contains(transform.position))
+            if (cardArena.GetComponent<BoxCollider2D>().OverlapPoint(transform.position))
             {
                 DropCardInArena();
             }
@@ -104,7 +110,7 @@ namespace Combat.Layout
 
         private void MoveCard()
         {
-            Ray camRay = myMainCamera.ScreenPointToRay(Input.mousePosition);
+            Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             dragPlane.Raycast(camRay, out var planeDist);
             transform.position = camRay.GetPoint(planeDist) + offset;

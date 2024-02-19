@@ -9,9 +9,9 @@ namespace Combat.Turns
 {
     public class PlayerTurn : Turn
     {
-        public static bool userActionWasDone;
+        public static bool userActionWasDone; // on le met à true depuis d'autres classes pour passer à la suite
 
-        public static Card currentCard;
+        public static Card currentCard; // on la change depuis d'autres classes, onClick sur des cartes notamment
 
         public override IEnumerator PlaceCard()
         {
@@ -57,13 +57,24 @@ namespace Combat.Turns
 
         public override IEnumerator ChooseOppoCard(System.Action<Card> callback)
         {
-            /*Random rand = new Random();
-            List<Card> placedCards = EnemyBehaviour.I().data.GetPlacedCards();
-            int index = rand.Next(0, placedCards.Count);
-            Card carte = placedCards[index];
-            return carte;*/
-            yield return new WaitForSeconds(2);
-            callback(null);
+            yield return null;
+            foreach (Card oppoCard in GetOppoContainer().GetSelectablePreyCards())
+            {
+                oppoCard.state = OnArenaSelectableAsPrey;
+            }
+
+            userActionWasDone = false;
+            do
+            {
+                yield return null;
+            } while (!userActionWasDone);
+
+            foreach (Card oppoCard in GetOppoContainer().GetSelectablePreyCards())
+            {
+                oppoCard.state = OnArenaStatic;
+            }
+
+            callback(currentCard);
         }
 
         public override string ToString()

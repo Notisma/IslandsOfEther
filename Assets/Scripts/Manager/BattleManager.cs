@@ -19,7 +19,7 @@ namespace Manager
 
             BigManager.I.alliedCardsContainer.CreateCardObjects(PlayerBehaviour.I.data.cards, true);
             BigManager.I.opponentCardsContainer.CreateCardObjects(EnemyBehaviour.I().data.cards, false);
-            
+
             BigManager.I.alliedCardsContainer.OrderDeck();
             BigManager.I.opponentCardsContainer.OrderDeck();
 
@@ -59,12 +59,15 @@ namespace Manager
             if (container.GetNbDeckedCards() > 0 &&
                 container.GetNbPlacedCards() < 3)
             {
-                TextDisplayer.I.DisplayText(currentTurn + " needs to place a new card (unplaced = " + container.GetNbDeckedCards() + " and placed = " +
-                          container.GetNbPlacedCards() + ")...");
+                TextDisplayer.I.DisplayText(currentTurn + " needs to place a new card (unplaced = " +
+                                            container.GetNbDeckedCards() + " and placed = " +
+                                            container.GetNbPlacedCards() + ")...");
                 yield return currentTurn.PlaceCard();
             }
 
-            if (container.GetNbPlacedCards() > 0)
+            if (container.GetNbPlacedCards() > 0 &&
+                currentTurn.GetOppoContainer().GetNbPlacedCards() >
+                0) // si l'ennemi a au moins une carte posée
             {
                 TextDisplayer.I.DisplayText(currentTurn + " needs to choose an attacking card...");
                 Card cardAtk = null;

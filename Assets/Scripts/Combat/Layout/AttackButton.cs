@@ -1,3 +1,4 @@
+using Combat.Turns;
 using Data;
 using UnityEngine;
 using static Combat.Layout.Card.CardState;
@@ -11,9 +12,11 @@ namespace Combat.Layout
 
         private void OnMouseDown()
         {
-            if (transform.parent.GetComponent<Card>().state is OnArenaSelectableAsAttacker)
+            Card card = transform.parent.GetComponent<Card>();
+            if (card.state is OnArenaSelectableAsAttacker)
             {
-                Debug.Log("Attacking0");
+                PlayerTurn.currentCard = card;
+                PlayerTurn.userActionWasDone = true;
             }
         }
     }

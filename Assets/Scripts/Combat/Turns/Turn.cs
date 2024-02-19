@@ -21,5 +21,10 @@ namespace Combat.Turns
             int attackPower = attacking.data.attack;
             defending.data.hp -= attackPower;
         }
+
+        public CardsContainer GetOppoContainer()
+        {
+            return GetNextTurn().GetCardsContainer();
+        }
     }
 }

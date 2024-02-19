@@ -97,8 +97,8 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void CesseTotalementDExister()
     {
-        transform.GetChild(0).gameObject.SetActive(false);
-        childSprite.gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false); // camera
+        childSprite.gameObject.SetActive(false); // sprite
     }
 
     public void GetNewCard(string codename)
