@@ -18,8 +18,8 @@ namespace Combat.Turns
 
         public void Attack(Card attacking, Card defending)
         {
-            int attackPower = attacking.data.attack;
-            defending.data.hp -= attackPower;
+            defending.data.hp -= attacking.data.baseData.attack;
+            if (defending.data.hp <= 0) defending.state = Card.CardState.Dead;
         }
 
         public CardsContainer GetOppoContainer()

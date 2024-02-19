@@ -8,7 +8,7 @@ namespace Combat.Layout
     public class AttackButton : MonoBehaviour
     {
         public int attack;
-        public CardData enemy;
+        public CardInstData enemy;
 
         private void OnMouseDown()
         {

@@ -2,21 +2,21 @@ using System;
 
 namespace Data
 {
-    [Serializable] public class CardData
+    [Serializable]
+    public class CardData
     {
-        // attributs et fonctions
-        public string id;
-        public string name; 
+        public string codename;
+        public string name;
         public int attack;
-        public int hp;
+        public int baseHp;
         public string description;
 
-        public CardData(string id,string name, int attack, int hp, string description = "")
+        public CardData(string codename, string name, int attack, int baseHp, string description)
         {
-            this.id = id;
+            this.codename = codename;
             this.name = name;
             this.attack = attack;
-            this.hp = hp;
+            this.baseHp = baseHp;
             this.description = description;
         }
     }

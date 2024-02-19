@@ -19,9 +19,11 @@ namespace Combat.Layout
             Dead
         }
 
-        public CardData data;
+        public CardInstData data;
 
+        public Transform spriteFields;
         private SpriteRenderer _spriteRenderer;
+
         private Plane dragPlane;
         public Vector3 offset;
 
@@ -118,7 +120,17 @@ namespace Combat.Layout
 
         public override string ToString()
         {
-            return data.name;
+            return data.baseData.name;
+        }
+
+        public void RefreshDisplay()
+        {
+            if (state is Dead) Destroy(gameObject);
+            else
+            {
+                spriteFields.GetChild(2).GetComponent<SpriteRenderer>().sprite = CardsManager.GetAtkSprite(data);
+                spriteFields.GetChild(3).GetComponent<SpriteRenderer>().sprite = CardsManager.GetHpSprite(data);
+            }
         }
     }
 }

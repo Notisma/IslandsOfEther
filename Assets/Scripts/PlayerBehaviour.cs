@@ -103,7 +103,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void GetNewCard(string codename)
     {
-        CardData c = CardsManager.cards[codename];
+        CardInstData c = new CardInstData(CardsManager.cards[codename]);
         data.AddCard(c);
     }
 }

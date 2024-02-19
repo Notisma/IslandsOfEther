@@ -11,13 +11,19 @@ namespace Combat.Layout
     {
         public Transform childCardGameObjects;
 
-        public void CreateCardObjects(List<CardData> cardsData, bool allied)
+        public void CreateCardObjects(List<CardInstData> cardsData, bool allied)
         {
-            foreach (CardData cardData in cardsData)
+            foreach (CardInstData cardData in cardsData)
             {
                 Card newCard = Instantiate(BigManager.I.prefabCardExample, childCardGameObjects).GetComponent<Card>();
                 newCard.data = cardData;
                 newCard.allied = allied;
+
+                // init sprites
+                Transform sprites = newCard.spriteFields;
+                sprites.GetChild(0).GetComponent<SpriteRenderer>().sprite = CardsManager.GetNameSprite(cardData);
+                sprites.GetChild(1).GetComponent<SpriteRenderer>().sprite = CardsManager.GetImageSprite(cardData);
+                newCard.RefreshDisplay();
             }
         }
 

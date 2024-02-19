@@ -81,10 +81,11 @@ namespace Manager
                     card => { cardDef = card; }
                 );
 
-                if (cardDef != null)
+                if (cardDef is not null)
                 {
                     TextDisplayer.I.DisplayText(currentTurn + " is attacking !");
                     currentTurn.Attack(cardAtk, cardDef);
+                    cardDef.RefreshDisplay();
                 }
             }
 
@@ -95,7 +96,7 @@ namespace Manager
         {
             TextDisplayer.I.DisplayText("Combat terminé !");
             BigManager.I.StartCoroutine(SceneLoader.Load(SceneLoader.previousScene));
-            PlayerBehaviour.I.GetNewCard(CardsManager.GetRandomCard().id);
+            PlayerBehaviour.I.GetNewCard(CardsManager.GetRandomCard().codename);
         }
     }
 }

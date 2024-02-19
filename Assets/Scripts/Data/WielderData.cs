@@ -4,7 +4,7 @@ namespace Data
 {
     public class WielderData
     {
-        public List<CardData> cards = new();
+        public List<CardInstData> cards = new();
         public string name;
 
         public WielderData(string name)
@@ -12,7 +12,7 @@ namespace Data
             this.name = name;
         }
 
-        public void AddCard(CardData c)
+        public void AddCard(CardInstData c)
         {
             cards.Add(c);
         }
